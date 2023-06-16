@@ -260,8 +260,8 @@
 						<thead>
 							<tr class="text-center">
 								<th>#</th>
-								<th>Image Desktop</th>
-								<th>Image Mobile</th>
+								<th>Titre</th>
+								<th>Image</th>
 								<th>Crée le</th>
 								<th>Modifié le</th>
 								<th>Actions</th>
@@ -272,8 +272,8 @@
 							{% for carousel in carousels %}
 								<tr class="text-center align-middle">
 									<td>{{ carousel.id }}</td>
+									<td>{{ carousel.titre }}</td>
 									<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ carousel.photo) }}"></td>
-									<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ carousel.photomobile) }}"></td>
 									<td>{{ carousel.createdAt | date('d/m/Y') }}</td>
 									<td>{{ carousel.updatedAt | date('d/m/Y') }}</td>
 									<td>
@@ -296,6 +296,5 @@
 					</table>
 
 </div>
-
 
 {% endblock %}

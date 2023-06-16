@@ -26,7 +26,7 @@
 			<h2 class="text-center">Article</h2>
 			<table class="table">
 				<thead>
-					<tr class="text-center">
+					<tr class="text-center text-white">
 						<th>#</th>
 						<th>Titre</th>
 						<th>Photo</th>
@@ -38,7 +38,7 @@
 				<tbody>
 
 					{% for article in articles %}
-						<tr class="text-center align-middle">
+						<tr class="text-center align-middle text-white">
 							<td>{{ article.id }}</td>
 							<td>{{ article.titre | length > 20 ? article.titre | slice(0,20) ~ '...' : article.titre }}</td>
 							<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ article.photo) }}" alt="{{ article.titre }}"></td>
@@ -71,7 +71,7 @@
 			<h2 class="text-center">Message</h2>
 			<table class="table">
 				<thead>
-					<tr class="text-center">
+					<tr class="text-center text-white">
 								<th>#</th>
 								<th>Date</th>
 								<th>Nom</th>
@@ -85,7 +85,7 @@
 				{% for message in messages %}
 
 					<tbody>
-						<tr class="text-center align-middle">
+						<tr class="text-center align-middle text-white">
 							<td>{{ message.id }}</td>
 							<td>{{ message.createdAt | date('d/m/Y') }}</td>
 							<td>{{ message.nom }}</td>
@@ -120,7 +120,7 @@
 			<h2 class="text-center">Réservation</h2>
 				<table class="table">
 						<thead>
-							<tr>
+						<tr class="text-center text-white">
 								<th>#</th>
 								<th>Nom</th>
 								<th>Prénom</th>
@@ -134,7 +134,7 @@
 				{% for reservation in reservations %}
 
 							<tbody>
-								<tr>
+									<tr class="text-center text-white">
 									<td>{{ reservation.id }}</td>
 									<td>{{ reservation.nom }}</td>
 									<td>{{ reservation.prenom }}</td>
@@ -167,10 +167,10 @@
 			<h2 class="text-center">Carousel</h2>
 		<table class="table">
 						<thead>
-							<tr class="text-center">
+							<tr class="text-center text-white">
 								<th>#</th>
-								<th>Image Desktop</th>
-								<th>Image Mobile</th>
+								<th>Titre</th>
+								<th>Image</th>
 								<th>Crée le</th>
 								<th>Modifié le</th>
 								<th>Actions</th>
@@ -179,10 +179,10 @@
 						<tbody>
 
 							{% for carousel in carousels %}
-								<tr class="text-center align-middle">
+									<tr class="text-center text-white">
 									<td>{{ carousel.id }}</td>
+									<td>{{ carousel.titre }}</td>
 									<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ carousel.photo) }}"></td>
-									<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ carousel.photomobile) }}"></td>
 									<td>{{ carousel.createdAt | date('d/m/Y') }}</td>
 									<td>{{ carousel.updatedAt | date('d/m/Y') }}</td>
 								<td>
@@ -204,6 +204,5 @@
 					</table>
 
 	</div>
-
 
 {% endblock %}

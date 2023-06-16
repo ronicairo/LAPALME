@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Carousel;
-use Detection\MobileDetect;
 use App\Form\CarouselFormType;
 use App\Repository\CarouselRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class CarouselController extends AbstractController
 {
-  #[Route('/ajouter-un-carousel', name: 'create_carousel', methods: ['GET', 'POST'])]
+    #[Route('/ajouter-un-carousel', name: 'create_carousel', methods: ['GET', 'POST'])]
     public function createCarousel(CarouselRepository $repository, Request $request, SluggerInterface $slugger): Response
     {
         $carousel = new Carousel();
@@ -31,17 +30,12 @@ class CarouselController extends AbstractController
             $carousel->setCreatedAt(new DateTime());
             $carousel->setUpdatedAt(new DateTime());
 
-            /** @var UploadedFile $photo */
+            /** @var UploadedFile $photo & */
             $photo = $form->get('photo')->getData();
-            $photomobile = $form->get('photomobile')->getData();
 
             if ($photo) {
                 $this->handleFile($photo, $carousel, $slugger);
             } //end if($photo)
-
-            if ($photomobile) {
-                $this->handleFile($photomobile, $carousel, $slugger);
-            } //end if($photomobile)
 
             $repository->save($carousel, true);
 
@@ -54,8 +48,9 @@ class CarouselController extends AbstractController
         ]);
     } // end createCarousel()
 
+
     #[Route('/carousel', name: 'show_carousel', methods: ['GET'])]
-    public function showMessage(EntityManagerInterface $entityManager): Response
+    public function showCarousel(EntityManagerInterface $entityManager): Response
     {
 
         $carousels = $entityManager->getRepository(Carousel::class)->findAll();
@@ -69,42 +64,27 @@ class CarouselController extends AbstractController
     public function updateCarousel(Carousel $carousel, Request $request, CarouselRepository $repository, SluggerInterface $slugger): Response
     {
         $currentPhoto = $carousel->getPhoto();
-        $currentPhotoMobile = $carousel->getPhotoMobile();
 
         $form = $this->createForm(CarouselFormType::class, $carousel, [
             'photo' => $currentPhoto,
-            'photomobile' => $currentPhotoMobile,
         ])
             ->handleRequest($request);
-            
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $carousel->setCreatedAt(new DateTime());
             $carousel->setUpdatedAt(new DateTime());
-    
+
             /** @var UploadedFile $photo */
             $photo = $form->get('photo')->getData();
-            $photomobile = $form->get('photomobile')->getData();
 
             if ($photo) {
                 $this->handleFile($photo, $carousel, $slugger);
                 # Si une nouvelle photo est uploadé on va supprimer l'ancienne :
                 unlink($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $currentPhoto);
-            }
-            else {
+            } else {
                 $carousel->setPhoto($currentPhoto);
             } // end if($photo)
-
-            if ($photomobile) {
-                $this->handleFileMobile($photomobile, $carousel, $slugger);
-                # Si une nouvelle photo est uploadé on va supprimer l'ancienne :
-                unlink($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $currentPhotoMobile);
-            }
-            else {
-                $carousel->setPhoto($currentPhoto);
-                $carousel->setPhotoMobile($currentPhotoMobile);
-            } // end if($photomobile)
-
 
             $this->addFlash('success', "Le carousel a bien eté modifié avec succès !");
             return $this->redirectToRoute(('show_dashboard'));
@@ -125,7 +105,6 @@ class CarouselController extends AbstractController
 
         $this->addFlash('success', "Le carousel a bien été archivé.");
         return $this->redirectToRoute('show_dashboard');
-
     } // end softDeleteCarousel
 
     #[Route('restaurer-un-carousel/{id}', name: 'restore_carousel', methods: ['GET'])]
@@ -143,12 +122,11 @@ class CarouselController extends AbstractController
     public function hardDeleteCarousel(Carousel $carousel, CarouselRepository $repository): Response
     {
         $photo = $carousel->getPhoto();
-        $photomobile = $carousel->getPhotoMobile();
 
         $repository->remove($carousel, true);
 
         unlink($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $photo);
-        
+
         $this->addFlash('success', "Le carousel a bien été supprimé définitivement !");
         return $this->redirectToRoute(('show_archive'));
     } // end hardDeletecarousel
@@ -164,36 +142,8 @@ class CarouselController extends AbstractController
             $photo->move($this->getParameter('uploads_dir'), $newFilename);
             $carousel->setPhoto($newFilename);
         } catch (FileException $exception) {
-            // code a exécuter en cas d'erreur
-        }
+            $this->addFlash('warning', "Le fichier de la photo ne s'est pas importé correctement. Veuillez réessayer." . $exception->getMessage());
+        } // end catch()
     } // end handleFile()
-
-    private function handleFileMobile(UploadedFile $photomobile, Carousel $carousel, SluggerInterface $slugger)
-    {
-        $extension = "." . $photomobile->guessExtension();
-        $safeFilename = $slugger->slug(pathinfo($photomobile->getClientOriginalName(), PATHINFO_FILENAME));
-
-        $newFilename = $safeFilename . '_' . uniqid() . $extension;
-
-        try {
-            $photomobile->move($this->getParameter('uploads_dir'), $newFilename);
-            $carousel->setPhoto($newFilename);
-        } catch (FileException $exception) {
-            // code a exécuter en cas d'erreur
-        }
-    } // end handleFile()
-
-public function carouselAction(EntityManagerInterface $entityManager, Request $request)
-{
-    $mobileDetect = new MobileDetect($request->headers->all());
-
-    // Retrieve carousel images from the database or any other data source
-    $carousels = $entityManager->getRepository(Carousel::class)->findAll();
-
-    return $this->render('default/show_home.html.twig', [
-        'carousels' => $carousels,
-        'isMobile' => $mobileDetect->isMobile(),
-    ]);
-}
-
+    
 }

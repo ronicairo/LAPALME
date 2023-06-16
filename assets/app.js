@@ -39,6 +39,8 @@ window.addEventListener('resize',function(){
 
 });
 
+// CAROUSEL
+
 // Controle de presence de l'élément sur la page en cours
 if( document.querySelector('.carrousel') ){
 
@@ -122,5 +124,7 @@ if( document.querySelector('.carrousel') ){
 
     document.querySelector('.previous').addEventListener('click',carrouselPrevious);
     document.querySelector('.next').addEventListener('click',carrouselNext);
+
+
 
 }

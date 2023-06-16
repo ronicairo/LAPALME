@@ -41,8 +41,8 @@ class ContactRepository extends ServiceEntityRepository
 
     public function findAllArchived()
     {
-        return $this->createQueryBuilder('c') // Première lettre de l'entité (article) / Comme si on faisait un # SELECT * FROM category
-        ->where('c.deletedAt IS NOT NULL') # WHERE deleted_at IS NOT NULL
+        return $this->createQueryBuilder('cont') // Première lettre de l'entité (article) / Comme si on faisait un # SELECT * FROM category
+        ->where('cont.deletedAt IS NOT NULL') # WHERE deleted_at IS NOT NULL
         ->getQuery() # Permet de récupérer la requête SQL
         ->getResult() # Permet de récupérer els résultats de la requête
         ;

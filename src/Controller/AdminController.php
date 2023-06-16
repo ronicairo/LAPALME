@@ -8,7 +8,6 @@ use App\Entity\Contact;
 use App\Entity\Carousel;
 use App\Entity\Commentaire;
 use App\Entity\Reservation;
-use App\Entity\Carouselmobile;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,6 +34,7 @@ class AdminController extends AbstractController
         $messages = $entityManager->getRepository(Contact::class)->findBy(['deletedAt' => null]);
         $reservations = $entityManager->getRepository(Reservation::class)->findBy(['deletedAt' => null]);
         $carousels = $entityManager->getRepository(Carousel::class)->findBy(['deletedAt' => null]);
+        $commentaires = $entityManager->getRepository(Commentaire::class)->findBy(['deletedAt' => null]);
 
         return $this->render('admin/show_dashboard.html.twig', [
             'articles' => $articles,
@@ -42,6 +42,8 @@ class AdminController extends AbstractController
             'messages' => $messages,
             'reservations' => $reservations,
             'carousels' => $carousels,
+            'commentaires' => $commentaires,
+
         ]);
     } // end showDashboard
 
@@ -53,12 +55,16 @@ class AdminController extends AbstractController
     $messages = $entityManager->getRepository(Contact::class)->findAllArchived();
     $reservations = $entityManager->getRepository(Reservation::class)->findAllArchived();
     $carousels = $entityManager->getRepository(Carousel::class)->findAllArchived();
+    $commentaires = $entityManager->getRepository(Commentaire::class)->findAllArchived();
     
     return $this->render('admin/show_archive.html.twig', [
         'articles' => $articles,
         'messages' => $messages,
         'reservations' => $reservations,
         'carousels' => $carousels,
+        'commentaires' => $commentaires,
+
+
     ]);
 
     } // endshowArchives

@@ -19,12 +19,15 @@ body {
     background-color: #222222;
 }
 
+
 #content {
     flex-grow: 1;
     background-color: #222222;
     font-family: 'Lora', serif;
     color: #ffffff;
-
+  justify-content: center;
+  justify-items: center;
+  text-justify: auto;
 }
 
 html {
@@ -32,6 +35,7 @@ html {
     min-height: 100vh;
 }
 
+/* MENU  */
 header {
     background: #222222;
     color: white;
@@ -172,76 +176,68 @@ main {
 
 }
 
-/* CARROUSEL */
-.carrousel {
-    position: relative;
-    margin: 50px auto 0;
-    width: 75vw;
-    max-width: 1200px;
-    height: calc(75vw * 9 / 16);
-    /* calcul pour respecter le ratio 16/9 */
-    max-height: calc(1200px * 9 / 16);
-    border: 15px solid #C09F6A;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .3);
-    overflow: hidden;
+/* CAROUSEL */
+.carrousel{
+    position:relative;
+    margin:0px auto 0;
+    width:90vw;
+    max-width:1200px;
+    height:calc(90vw * 9 / 16); /* calcul pour respecter le ratio 16/9 */
+    max-height:calc(1200px * 9 / 16);
+    border:3px solid  #C09F6A;
+    overflow:hidden;
 }
 
-.carrousel .reglette {
-    display: flex;
-    height: 100%;
-    position: relative;
-    top: 0;
-    left: 0;
+.carrousel .reglette{
+    display:flex;
+    height:100%;
+    position:relative;
+    top:0;
+    left:0;
     justify-content: flex-start;
     align-items: center;
 }
 
-.carrousel .reglette figure {
-    height: 100%;
-    position: relative;
+.carrousel .reglette figure{
+    height:100%;
+    position:relative;
+}
+.carrousel .reglette figure img{
+    width:100%;
+    height:100%;
+}
+.carrousel .reglette figure figcaption{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    text-align:center;
+    background-color:rgba(255,255,255,.5);
+    padding:8px 0;
+}
+.carrousel .previous, .carrousel .next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    color:white;
+    cursor:pointer;
+    font-size:1.5rem;
 }
 
-.carrousel .reglette figure img {
-    width: 100%;
-    height: 100%;
+.carrousel .previous{
+    left:10px;
 }
-
-.carrousel .reglette figure {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    background-color: rgba(255, 255, 255, .5);
-    padding: 8px 0;
-}
-
-.carrousel .previous,
-.carrousel .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #C09F6A;
-    cursor: pointer;
-    font-size: 1.5rem;
-}
-
-.carrousel .previous {
-    left: 10px;
-}
-
-.carrousel .next {
-    right: 10px;
+.carrousel .next{
+    right:10px;
 }
 
 
-.carrousel .reglette.animavance {
-    animation: avance 1s ease-in-out forwards;
-    animation-iteration-count: 1;
+.carrousel .reglette.animavance{
+    animation:avance 1s ease-in-out forwards;
+    animation-iteration-count :1;
 }
-
-.carrousel .reglette.animrecule {
-    animation: recule 1s ease-in-out forwards;
-    animation-iteration-count: 1;
+.carrousel .reglette.animrecule{
+    animation:recule 1s ease-in-out forwards;
+    animation-iteration-count :1;
 }
 
 
@@ -249,7 +245,6 @@ main {
     0% {
         left: 0;
     }
-
     100% {
         left: -100%;
     }
@@ -259,7 +254,6 @@ main {
     0% {
         left: -100%;
     }
-
     100% {
         left: 0;
     }

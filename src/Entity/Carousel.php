@@ -22,7 +22,7 @@ class Carousel
     private ?string $photo = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $photomobile = null;
+    private ?string $titre = null;
 
     public function getId(): ?int
     {
@@ -41,14 +41,14 @@ class Carousel
         return $this;
     }
 
-    public function getPhotomobile(): ?string
+    public function getTitre(): ?string
     {
-        return $this->photomobile;
+        return $this->titre;
     }
 
-    public function setPhotomobile(string $photomobile): self
+    public function setTitre(string $titre): self
     {
-        $this->photomobile = $photomobile;
+        $this->titre = $titre;
 
         return $this;
     }
