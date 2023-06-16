@@ -1,0 +1,301 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center my-5 text-white">Tableau de bord</h1>
+
+	<div class="row">
+		<div class="col-6 mx-auto">
+			{% include 'include/_flashes.html.twig' %}
+		</div>
+	</div>
+
+	<div class="row my-3 mx-auto"> <div>
+		<a class=" btn btn-sm btn-outline-light text-white" href="{{ path('show_archive') }}">Archives</a>
+		</div>
+	</div>
+
+<div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Compte administrateur
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+	  
+	  	<h2 class="text-center">Liste des administrateurs</h2>
+					<div class="row my-5 mx-auto text-center col-2">
+						<a class=" btn btn-sm btn-outline-dark" href="{{ path('register') }}">Ajouter un administrateur</a>
+					</div>
+					<table class="table">
+						<thead>
+							<tr class="text-center">
+								<th>#</th>
+								<th>Rôle</th>
+								<th>Prénom</th>
+								<th>Nom</th>
+								<th>Email</th>
+								<th>Crée le</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for user in users %}
+								<tr class="text-center align-middle">
+									<td>{{ user.id }}</td>
+									<td>{{ user.roles | first }}</td>
+									<td>{{ user.lastname }}</td>
+									<td>{{ user.firstname }}</td>
+									<td>{{ user.email }}</td>
+									<td>{{ user.createdAt | date('d/m/Y') }}</td>
+									<td>
+										<a href="{{ path('update_user', {'id': user.id}) }}" class="btn btn-warning" title="Modifier">
+	<i class="bi bi-pen"></i>
+										</a>
+										<a href="{{ path('soft_delete_user', {'id': user.id}) }}" class="btn btn-danger" title="Supprimer" onclick="return confirm('Cette action supprimera l'administrateur. Voulez-vous continuer ?' )">
+								<i class="bi bi-trash"></i>
+										</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="7" class="bg-secondary text-center">Aucun utilisateur</td>
+								</tr>
+
+							{% endfor %}
+						</tbody>
+					</table>
+
+	  </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        Articles
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+	  
+	  	<h2 class="text-center">Tous les articles</h2>
+
+					<div class="row my-5 mx-auto text-center col-2">
+						<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_article') }}">Ajouter un article</a>
+					</div>
+
+
+					<table class="table">
+						<thead>
+							<tr class="text-center">
+								<th>#</th>
+								<th>Titre</th>
+								<th>Photo</th>
+								<th>Crée le</th>
+								<th>Modifié le</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							{% for article in articles %}
+								<tr class="text-center align-middle">
+									<td>{{ article.id }}</td>
+									<td>{{ article.titre | length > 20 ? article.titre | slice(0,20) ~ '...' : article.titre }}</td>
+									<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ article.photo) }}" alt="{{ article.titre }}"></td>
+									<td>{{ article.createdAt | date('d/m/Y') }}</td>
+									<td>{{ article.updatedAt | date('d/m/Y') }}</td>
+									<td>
+										<a href="{{ path('update_article', {'id': article.id})}}" class="btn btn-warning" title="Modifier">
+								<i class="bi bi-pen"></i>
+										</a>
+										<a href="{{ path('soft_delete_article', {'id': article.id})}}" class="btn btn-danger" title="Archiver">
+											<i class="bi bi-archive"></i>
+										</a>
+									</td>
+
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="7" class="bg-secondary text-center">Aucun article</td>
+								</tr>
+
+							{% endfor %}
+						</tbody>
+					</table>
+
+
+	  </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+       Messagerie
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+	  
+	  	<h2 class="text-center">Messagerie</h2>
+
+					<table class="table">
+						<thead>
+									<tr class="text-center align-middle">
+								<th>#</th>
+								<th>Date</th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Email</th>
+								<th>Message</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+
+						{% for message in messages %}
+
+							<tbody>
+							<tr class="text-center align-middle">
+									<td>{{ message.id }}</td>
+									<td>{{ message.createdAt | date('d/m/Y') }}</td>
+									<td>{{ message.nom }}</td>
+									<td>{{ message.prenom }}</td>
+									<td>{{ message.email }}</td>
+									<td>{{ message.message }}</td>
+									<td>
+										<a href="{{ path('soft_delete_message', {'id': message.id}) }}" class="btn btn-danger" title="Archiver">
+											<i class="bi bi-archive"></i>
+										</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="7" class="bg-secondary text-center">Aucun message</td>
+								</tr>
+
+							{% endfor %}
+
+						</tbody>
+					</table>
+
+	  </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+        Réservations
+      </button>
+    </h2>
+    <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+	  
+	  	<h2 class="text-center">Les réservations</h2>
+
+					<table class="table">
+						<thead>
+								<tr class="text-center align-middle">
+								<th>#</th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Email</th>
+								<th>Nombre de personnes</th>
+								<th>Date et heure</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+
+						{% for reservation in reservations %}
+
+							<tbody>
+									<tr class="text-center align-middle">
+									<td>{{ reservation.id }}</td>
+									<td>{{ reservation.nom }}</td>
+									<td>{{ reservation.prenom }}</td>
+									<td>{{ reservation.email }}</td>
+									<td>{{ reservation.personne }}</td>
+									<td>{{ reservation.date | date('d/m/Y à H:i') }}</td>
+									<td>
+										<a href="{{ path('update_reservation', {'id': reservation.id}) }}" class="btn btn-warning" title="Modifier">
+	<i class="bi bi-pen"></i>
+										</a>
+										<a href="{{ path('soft_delete_reservation', {'id': reservation.id}) }}" class="btn btn-danger" title="Archiver">
+											<i class="bi bi-archive"></i>
+										</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="7" class="bg-secondary text-center">Aucune réservation</td>
+								</tr>
+
+							{% endfor %}
+
+						</tbody>
+					</table>
+
+	  </div>
+    </div>
+  </div>
+
+   <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+        Carousel
+      </button>
+    </h2>
+    <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+	  
+	  	<h2 class="text-center">Carousel</h2>
+<div class="row my-5 mx-auto text-center col-2">
+						<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_carousel') }}">Ajouter une image</a>
+					</div>
+					<table class="table">
+						<thead>
+							<tr class="text-center">
+								<th>#</th>
+								<th>Image Desktop</th>
+								<th>Image Mobile</th>
+								<th>Crée le</th>
+								<th>Modifié le</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							{% for carousel in carousels %}
+								<tr class="text-center align-middle">
+									<td>{{ carousel.id }}</td>
+									<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ carousel.photo) }}"></td>
+									<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ carousel.photomobile) }}"></td>
+									<td>{{ carousel.createdAt | date('d/m/Y') }}</td>
+									<td>{{ carousel.updatedAt | date('d/m/Y') }}</td>
+									<td>
+										<a href="{{ path('update_carousel', {'id': carousel.id})}}" class="btn btn-warning" title="Modifier"> 
+								<i class="bi bi-pen"></i>
+										</a>
+										<a href="{{ path('soft_delete_carousel', {'id': carousel.id})}}" class="btn btn-danger" title="Archiver">
+											<i class="bi bi-archive"></i>
+										</a>
+									</td>
+
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="7" class="bg-secondary text-center">Aucune image</td>
+								</tr>
+
+							{% endfor %}
+						</tbody>
+					</table>
+
+</div>
+
+
+{% endblock %}

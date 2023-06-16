@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Admin - Ajouter une image au Carousel{% endblock %}
+
+{% block body %}
+
+{% if carousel is not defined %}
+	<h1 class="text-center my-3 text-white">Ajouter une image</h1>
+{% else %}
+	<h1 class="text-center my-3 text-white">Modifier l'image N°{{ carousel.id }}</h1>
+{% endif %}
+
+	<div class="row">
+		<div class="col-5 mx-auto">
+
+			{{ form_start(form) }}
+
+			{{ form_row(form.photo) }}
+			{{ form_row(form.photomobile) }}
+			
+			{{ form_end(form) }}
+
+		</div>
+	</div>
+
+{% endblock %}

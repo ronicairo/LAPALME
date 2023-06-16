@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact - Hôtel House{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center my-4">Contactez-nous</h1>
+    <hr class="my-5">
+	<div class="text-center">
+  <h2>Par Téléphone au 03 44 66 04 64</h2>
+  <h2>ou</h2>
+  <h2>En remplissant le formulaire ci-dessous :</h2>
+  </div>
+  {% include "include/_flashes.html.twig" %}
+
+    <div class="row">
+    <div class="col-8 mx-auto">
+
+  {{ form_start(form) }}
+
+    <div class="row">
+    <div class="col-6">{{ form_row(form.nom) }}</div>
+    <div class="col-6">{{ form_row(form.prenom) }}</div>
+    </div>
+
+    <div class="row">
+    <div class="col-12">{{ form_row(form.email) }}</div>
+    </div>
+
+    <div class="row">
+    <div class="col-12">{{ form_row(form.message) }}</div>
+    </div>
+
+    {{ form_row(form.submit) }}
+    
+  {{form_end(form)}}
+
+    </div>
+    </div>
+
+{% endblock %}

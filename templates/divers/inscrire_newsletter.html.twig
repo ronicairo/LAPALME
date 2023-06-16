@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}inscription newsletter | Hotel House{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+<div class="col-md-5 offset-md-1 mb-3">
+        <form>
+          <h1 class"m-4">Inscrivez-vous à notre newsletter</h1>
+
+          <p>Le résumé mensuel de ce qui est passionnant de notre part ainsi que nos offres</p>
+          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden"></label>
+            <input id="newsletter1" type="text" class="form-control" placeholder="Votre adresse-email">
+            <button class="btn btn-dark" type="button">S'abonner</button>
+          </div>
+        </form>
+      </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Restaurant La Palme
+{% endblock %}
+
+{% block body %}
+{# 
+	<div class="carrousel">
+		<div class="reglette">
+
+			{% for carousel in carousels %}
+			 {% if loop.first %}active{% endif %}">
+                {% if app.request.isMobile %}
+				<figure>
+					<img src="{{ asset('uploads/') ~ carousel.photomobile }}" alt="">
+				</figure>
+				 {% else %}
+				 				<figure>
+					<img src="{{ asset('uploads/') ~ carousel.photo }}" alt="">
+				</figure>
+				  {% endif %}
+			{% endfor %}
+		</div>
+
+		<div class="previous">
+			<i class="fa-solid fa-chevron-left"></i>
+		</div>
+		<div class="next">
+			<i class="fa-solid fa-chevron-right"></i>
+		</div>
+	</div> #}
+
+<div id="carouselExample" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        {% for carousel in carousels %}
+            <li data-target="#carouselExample" data-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></li>
+        {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+        {% for carousel in carousels %}
+            <div class="carousel-item {% if loop.first %}active{% endif %}">
+        {% if isMobile %}
+                    <img src="{{ asset('uploads/') ~ carousel.photomobile }}" class="d-block w-100">
+                {% else %}
+                    <img src="{{ asset('uploads/') ~ carousel.photo }}" class="d-block w-100">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+	{% for article in articles %}
+
+		<h1 class='text-center my-4'>Articles à la Une</h1>
+
+		<div class="row">
+			<div class="col-10 mx-auto">
+
+				<div class="card mb-3">
+					<div class="row g-0">
+						<div class="col-md-4">
+							<img src="{{ asset('uploads/') ~ article.photo }}" class="img-fluid rounded-start" alt="...">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title">{{ article.titre | capitalize }}</h5>
+								<p class="card-text">{{ article.soustitre }}</p>
+								<p class="card-text">
+									<small class="text-muted">Crée le
+										{{ article.createdAt | date('d/m/Y') }}</small>
+								</p>
+							</div>
+						</div>
+					</a>
+
+				{% endfor %}
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-6 mx-auto">
+
+				<h3 class="mb-4">Espace Commentaires :</h3>
+
+				{% for commentaire in commentaires | reverse %}
+
+					<div class="alert alert-dark mb-3" role="alert">
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{ path('hard_delete_commentaire', {'id': commentaire.id}) }}">
+								<i class="bi bi-x"></i>
+							</a>
+						{% endif %}
+
+						<h4 class="alert-heading">{{ commentaire.nom}}
+							<span class="h6">posté
+								{{ commentaire.createdAt | ago(locale='fr') }}</span>
+						</h4>
+						<p>{{ commentaire.commentaire | raw }}</p>
+
+
+					</div>
+				{% else %}
+					<div class="alert alert-warning mb-3" role="alert">
+						<p class="text-center fw-bolder">Aucun commentaire</p>
+					</div>
+				{% endfor %}
+
+			</div>
+		</div>
+
+	{% endblock %}

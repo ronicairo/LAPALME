@@ -1,0 +1,36 @@
+<header>
+	<a href="{{ path('show_home')}}"><img class="logo" src="/logo.png" height="50" alt=""></a>
+	<div id="burger">
+		<i class="fa-solid fa-bars"></i>
+	</div>
+	<nav id="menu">
+		<ul>
+			<li id="fermer">
+				<i class="fa-solid fa-xmark"></i>
+			</li>
+			<li>
+				<a href="{{ path('register_reservation') }}">Réserver</a>
+			</li>
+			<li>
+				<a href="{{ path('add_commentaire') }}">Avis</a>
+			</li>
+			<li>
+				<a href="{{ path('show_quisommesnous') }}">Qui sommes-nous ?</a>
+			</li>
+			<li>
+				<a href="{{ path('show_acces') }}">Accès</a>
+			</li>
+			<li>
+				<a href="{{ path('show_contact') }}">Contact</a>
+			</li>
+
+			{% if is_granted('ROLE_ADMIN') %}
+				<li>
+				<a href="{{ path('show_dashboard') }}">Dashboard</a>
+			</li>
+			{% endif %}
+			
+		</ul>
+	</nav>
+</header>
+
