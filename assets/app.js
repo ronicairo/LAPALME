@@ -12,23 +12,28 @@ import './styles/app.css';
 import './bootstrap';
 
 // MENU BURGER
-
 let burger = document.querySelector('#burger');
 let menu = document.querySelector('#menu');
 let fermer = document.querySelector('#fermer');
 
 burger.addEventListener('click',function(){
-
-menu.classList.add('deploye','transition');
-
-});
-
-fermer.addEventListener('click',function(){
-
-    menu.classList.remove('deploye')
-
-});
-
+    menu.classList.toggle('deploye');
+    
+    if(menu.classList.contains('transition')){
+    setTimeout(function(){
+        menu.classList.toggle('transition');
+    },1000);
+    }
+    else {
+        menu.classList.toggle('transition');
+    }
+    });
+    
+    // fermer.addEventListener('click',function(){
+    
+    // menu.classList.remove('deploye')
+    
+    // });
 // redimensionnement de fenêtre
 window.addEventListener('resize',function(){
     
@@ -38,8 +43,6 @@ window.addEventListener('resize',function(){
     }
 
 });
-
-// CAROUSEL
 
 // Controle de presence de l'élément sur la page en cours
 if( document.querySelector('.carrousel') ){
@@ -109,22 +112,9 @@ if( document.querySelector('.carrousel') ){
         },1000);
 
     }
-    
-    let timer1 = setInterval(carrouselNext,3000);
 
-    // mettre en place une pause quand la souris rentre sur le carrousel
-    carrousel.addEventListener('mouseenter',function(){
-        clearInterval(timer1);
-    });
-
-    carrousel.addEventListener('mouseleave',function(){
-        clearInterval(timer1); // par sécurité on arrête un eventuel redémarrage
-        timer1 =  setInterval(carrouselNext,3000);
-    });
 
     document.querySelector('.previous').addEventListener('click',carrouselPrevious);
     document.querySelector('.next').addEventListener('click',carrouselNext);
-
-
 
 }
