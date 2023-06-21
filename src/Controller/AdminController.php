@@ -51,6 +51,13 @@ class AdminController extends AbstractController
     public function showArchives (EntityManagerInterface $entityManager): Response
     {
 
+        try {
+            $this->denyAccessUnlessGranted("ROLE_ADMIN");
+        } catch (AccessDeniedException) {
+            $this->addFlash('danger', "Cette partie du site est réservé");
+            return $this->redirectToRoute('app_login');
+        }
+        
     $articles = $entityManager->getRepository(Article::class)->findAllArchived();
     $messages = $entityManager->getRepository(Contact::class)->findAllArchived();
     $reservations = $entityManager->getRepository(Reservation::class)->findAllArchived();
@@ -63,7 +70,6 @@ class AdminController extends AbstractController
         'reservations' => $reservations,
         'carousels' => $carousels,
         'commentaires' => $commentaires,
-
 
     ]);
 

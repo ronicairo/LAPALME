@@ -6,6 +6,7 @@ use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,13 +19,23 @@ class ArticleFormType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class, [
-                'label' => "Titre de l'article"
+                'label' => "Titre de l'article",
+                'constraints' => [
+                    new NotBlank([
+                        'message' =>'Veuillez ajouter un titre',
+                        ])
+                ]
             ])
             ->add('soustitre', TextType::class, [
                 'label' => "Sous-titre de l'article"
             ])
             ->add('contenu', TextareaType::class, [
-                'label' => 'Contenu'
+                'label' => 'Contenu',
+                'constraints' => [
+                    new NotBlank([
+                        'message' =>'Veuillez ajouter un contenu',
+                        ])
+                ]
             ])
             ->add('photo', FileType::class, [
                 'label' => "Image d'illustration",
@@ -45,7 +56,7 @@ class ArticleFormType extends AbstractType
                 'label' => $options['photo'] === null ? 'Créer' : 'Modifier',
                 'validate' => false,
                 'attr' => [
-                    'class' => 'd-block mx-auto my-3 col-3 btn btn-primary'
+                    'class' => "d-block mx-auto my-2 btn btn-outline-light col-4"
                 ]
             ])
         ;

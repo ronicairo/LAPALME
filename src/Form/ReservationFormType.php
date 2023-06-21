@@ -21,50 +21,51 @@ class ReservationFormType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'label' => "Nom",
-                'attr' => [
-                    'class' => "text-white"
-                ],
                 'constraints' => [
                     new NotBlank([
-                        'message' =>'Ce champ ne peut être vide.',
-                        ])]
+                        'message' => 'Ce champ ne peut être vide.',
+                    ])
+                ]
             ])
             ->add('prenom', TextType::class, [
                 'label' => "Prénom",
                 'constraints' => [
                     new NotBlank([
-                        'message' =>'Ce champ ne peut être vide.',
-                        ])]
+                        'message' => 'Ce champ ne peut être vide.',
+                    ])
+                ]
             ])
             ->add('date', DateTimeType::class, [
-                    'widget' => 'single_text',
-                    'placeholder' => [
-                        'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
-                        'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Second',
-                    ],
-                    'constraints' => [
-                        new NotBlank([
-                            'message' =>'Veuillez sélectionner une date et un horaire.',
-                            ])]
-                ])
+                'widget' => 'single_text',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                    'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Second',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectionner une date et un horaire.',
+                    ])
+                ]
+            ])
             ->add('personne', IntegerType::class, [
                 'label' => "Nombre de personnes",
                 'constraints' => [
                     new NotBlank([
-                        'message' =>'Ce champ ne peut contenir uniquement des caractères numériques (0-9).',
-                        ])]
+                        'message' => 'Ce champ ne peut contenir uniquement des caractères numériques (0-9).',
+                    ])
+                ]
             ])
             ->add('email', EmailType::class, [
                 'label' => "Email",
                 'constraints' => [
                     new NotBlank([
-                        'message' =>'Ce champ ne peut etre vide : {{ value }}'
+                        'message' => 'Ce champ ne peut etre vide : {{ value }}'
                     ]),
                     new Length([
                         'min' => 4,
-                        'max' =>180,
-                        'minMessage' =>'Votre email doit comporter au minimum {{ limit }} caractères.(email : {{ value }})',
-                        'maxMessage' =>'Votre email doit comporter au maximum {{ limit }} caractères.',
+                        'max' => 180,
+                        'minMessage' => 'Votre email doit comporter au minimum {{ limit }} caractères.(email : {{ value }})',
+                        'maxMessage' => 'Votre email doit comporter au maximum {{ limit }} caractères.',
                     ]),
                 ],
             ])
@@ -72,12 +73,11 @@ class ReservationFormType extends AbstractType
                 'label' => "Réserver",
                 'validate' => false,
                 'attr' => [
-                    'class' => "d-block mx-auto my-3 btn btn-warning col-3"
+                    'class' => "d-block mx-auto my-2 btn btn-outline-light col-4"
                 ]
-            ])
-        ;
+            ]);
     }
-   
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

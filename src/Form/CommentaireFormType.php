@@ -20,10 +20,11 @@ class CommentaireFormType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => "Laissez votre commentaire ici",
-                    'class' => 'editor' # Pour activer CKEditor
                 ],
                 'constraints' => [
-                    new NotBlank(),
+                    new NotBlank([
+                        'message' =>'Veuillez ajouter un message',
+                        ])
                 ]
             ])
             ->add('nom', TextType::class, [
@@ -34,11 +35,11 @@ class CommentaireFormType extends AbstractType
                         ])]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "Commenter <i class='bi bi-send'></i>",
+                'label' => "Commentez",
                 'label_html' => true, # Permet d'interpréter le HTML dans le label
                 'validate' => false,
                 'attr' => [
-                    'class' => "d-block mx-auto my-3 col-3 btn btn-warning"
+                    'class' => "d-block mx-auto my-5 btn btn-outline-light col-5"
                 ]
             ])
         ;

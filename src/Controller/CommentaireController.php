@@ -5,7 +5,6 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Commentaire;
 use App\Form\CommentaireFormType;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +30,7 @@ class CommentaireController extends AbstractController
 
             $message= "Votre commentaire a bien été envoyé";
             $this->addFlash('success', $message);
-            return $this->redirectToRoute('add_commentaire');
+            return $this->redirectToRoute('show_home');
         }
 
         return $this->render('commentaire/form_commentaire.html.twig', [

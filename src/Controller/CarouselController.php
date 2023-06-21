@@ -6,7 +6,6 @@ use DateTime;
 use App\Entity\Carousel;
 use App\Form\CarouselFormType;
 use App\Repository\CarouselRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +19,7 @@ class CarouselController extends AbstractController
     #[Route('/ajouter-un-carousel', name: 'create_carousel', methods: ['GET', 'POST'])]
     public function createCarousel(CarouselRepository $repository, Request $request, SluggerInterface $slugger): Response
     {
+        
         $carousel = new Carousel();
 
         $form = $this->createForm(CarouselFormType::class, $carousel)
@@ -48,18 +48,6 @@ class CarouselController extends AbstractController
         ]);
     } // end createCarousel()
 
-
-    #[Route('/carousel', name: 'show_carousel', methods: ['GET'])]
-    public function showCarousel(EntityManagerInterface $entityManager): Response
-    {
-
-        $carousels = $entityManager->getRepository(Carousel::class)->findAll();
-
-        return $this->render('admin/show_dashboard.html.twig', [
-            'carousels' => $carousels,
-        ]);
-    }
-
     #[Route('/modifier-un-carousel{id}', name: 'update_carousel', methods: ['GET', 'POST'])]
     public function updateCarousel(Carousel $carousel, Request $request, CarouselRepository $repository, SluggerInterface $slugger): Response
     {
@@ -85,6 +73,8 @@ class CarouselController extends AbstractController
             } else {
                 $carousel->setPhoto($currentPhoto);
             } // end if($photo)
+
+            $repository->save($carousel, true);
 
             $this->addFlash('success', "Le carousel a bien eté modifié avec succès !");
             return $this->redirectToRoute(('show_dashboard'));

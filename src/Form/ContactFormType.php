@@ -23,6 +23,7 @@ class ContactFormType extends AbstractType
                     new NotBlank([
                         'message' =>'Ce champ ne peut être vide.',
                         ])]
+                        
             ])
             ->add('prenom', TextType::class, [
                 'label' => "Prénom",
@@ -56,7 +57,7 @@ class ContactFormType extends AbstractType
                 'label' => "Envoyer",
                 'validate' => false,
                 'attr' => [
-                    'class' => 'd-block mx-auto my-3 col-3 btn btn-primary'
+                    'class' => "d-block mx-auto my-2 btn btn-outline-light col-4"
                 ]
             ]);
     }

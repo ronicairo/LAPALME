@@ -1,18 +1,24 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');
+</style>
+
 <header>
-	<a href="{{ path('show_home')}}"><img class="logo" src="/logo.png" alt="logo la palme"></a>
+	<h1>
+		<a href="{{ path('show_home')}}"><img class="logo" src="/logo.png" alt="logo la palme"></a>
+	</h1>
 	<div id="burger">
 		<i class="fa-solid fa-bars"></i>
 	</div>
 	<nav id="menu">
 		<ul>
 			<li>
+				<a href="{{ path('show_home') }}">Accueil</a>
+			</li>
+			<li>
 				<a href="{{ path('register_reservation') }}">Réserver</a>
 			</li>
 			<li>
 				<a href="{{ path('add_commentaire') }}">Avis</a>
-			</li>
-			<li>
-				<a href="{{ path('show_quisommesnous') }}">Qui sommes-nous ?</a>
 			</li>
 			<li>
 				<a href="{{ path('show_acces') }}">Accès</a>

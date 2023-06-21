@@ -2,47 +2,48 @@
 
 {% block title %}La Palme - Avis{% endblock %}
 
-
-{% block javascripts %}
-<script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
-
-<script>
-    ClassicEditor
-        .create( document.querySelector( '.editor' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
-
-{% endblock %}
-
 {% block body %}
 
-<h2 class="text-center">Avis</h2>
+	{{ form_start(form) }}
+	<div class="contenu">
+		<div class="screen">
+			<div class="screen-header">
+				<div class="screen-header-left">
+					<div class="screen-header-button close"></div>
+					<div class="screen-header-button maximize"></div>
+					<div class="screen-header-button minimize"></div>
+				</div>
+				<div class="screen-header-right">
+					<div class="screen-header-ellipsis"></div>
+					<div class="screen-header-ellipsis"></div>
+					<div class="screen-header-ellipsis"></div>
+				</div>
+			</div>
+			<div class="screen-body">
+				<div class="screen-body-item left">
+					<div class="app-title">
+						<span class="text-center">Espace Commentaire</span>
+					</div>
+          					<div class="col-6 mx-auto">
+					<div class="row">
+						<div class="app-form-control">{{ form_row(form.nom) }}</div>
+					</div>
+					<div class="row">
+						<div class="app-form-control">{{ form_row(form.commentaire) }}</div>
+					</div>
+					</div>
 
-	<div class="row">
-		<div class="col-6 mx-auto">
-			{% include 'include/_flashes.html.twig' %}
+					{{ form_row(form.submit) }}
+
+					{{form_end(form)}}
+
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
+</div>
+</div>
 
-    <div class="row">
-    <div class="col-8 mx-auto">
-
-  {{ form_start(form) }}
-
-    <div class="row text-center">
-    <div class="col-6">{{ form_row(form.nom) }}</div>
-    </div>
-     <div class="row">
-    <div class="col-6">{{ form_row(form.commentaire) }}</div>
-    </div>
-
-    {{ form_row(form.submit) }}
-    
-  {{form_end(form)}}
-
-    </div>
-    </div>
 
 {% endblock %}

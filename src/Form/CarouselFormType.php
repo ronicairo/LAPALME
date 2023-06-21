@@ -26,7 +26,7 @@ class CarouselFormType extends AbstractType
             ]
         ])
             ->add('photo', FileType::class, [
-                'label' => "Image ordinateur",
+                'label' => "Image",
                 'data_class' => null,
                 'mapped' => false,
                 'attr' => [
@@ -35,7 +35,7 @@ class CarouselFormType extends AbstractType
                 'constraints' => [
                     new Image([
                         'mimeTypes' => ['image/jpeg', 'image/png'],
-                        'maxSize' => '5M'
+                        'maxSize' => '8M'
                     ]),
                     new NotBlank([
                         'message' =>'Veuillez ajouter une photo (jpg/png accepté)',
@@ -46,7 +46,7 @@ class CarouselFormType extends AbstractType
                 'label' => ($options['photo'] === null) ? 'Créer' : 'Modifier',
                 'validate' => false,
                 'attr' => [
-                    'class' => 'd-block mx-auto my-3 col-3 btn btn-primary'
+                    'class' => "d-block mx-auto my-2 btn btn-outline-light col-4"
                 ]
             ]);
     }

@@ -19,6 +19,7 @@ class ArticleController extends AbstractController
     #[Route('/ajouter-un-article', name: 'create_article', methods: ['GET', 'POST'])]
     public function createArticle(ArticleRepository $repository, Request $request, SluggerInterface $slugger): Response
     {
+        
         $article = new Article();
 
         $form = $this->createForm(ArticleFormType::class, $article)

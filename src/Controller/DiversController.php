@@ -14,15 +14,4 @@ class DiversController extends AbstractController
         return $this->render('divers/mentions_legales.html.twig');
     }
 
-    #[Route('/inscription-de-la-newsletter', name: 'inscrire_newsletter',methods:['GET'])]
-    public function inscrireNewsletter(): Response
-    {
-        return $this->render('divers/inscrire_newsletter.html.twig');
-    }
-
-    #[Route('/partage', name: 'partage',methods:['GET'])]
-    public function partage(): Response
-    {
-        return $this->render('divers/partage.html.twig');
-    }
 }

@@ -32,7 +32,7 @@ class ContactController extends AbstractController
             $repository->save($contact, true);
 
             $this->addFlash('success', "Votre message a bien été envoyé !");
-            return $this->redirectToRoute('show_home');
+            return $this->redirectToRoute('show_contact');
         } // end if($form)
 
         return $this->render('restaurant/contact_form.html.twig', [

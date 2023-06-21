@@ -5,7 +5,6 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Reservation;
 use App\Form\ReservationFormType;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

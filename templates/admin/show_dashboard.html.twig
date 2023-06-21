@@ -4,16 +4,18 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center my-5 text-white">Tableau de bord</h1>
+	<h1 class="text-center my-1 text-white">Tableau de bord</h1>
 
-	<div class="row">
+
 		<div class="col-6 mx-auto">
 			{% include 'include/_flashes.html.twig' %}
 		</div>
-	</div>
 
-	<div class="row my-3 mx-auto"> <div>
-		<a class=" btn btn-sm btn-outline-light text-white" href="{{ path('show_archive') }}">Archives</a>
+
+	<div class="row my-3 mx-auto"><div>
+		<a class=" btn btn-sm btn-outline-light" href="{{ path('show_archive') }}">
+		<i class="bi bi-trash"></i>
+		Archives</a>
 		</div>
 	</div>
 
@@ -28,7 +30,7 @@
       <div class="accordion-body">
 	  
 	  	<h2 class="text-center">Liste des administrateurs</h2>
-					<div class="row my-5 mx-auto text-center col-2">
+					<div class="row my-5 mx-auto text-center col-4">
 						<a class=" btn btn-sm btn-outline-dark" href="{{ path('register') }}">Ajouter un administrateur</a>
 					</div>
 					<table class="table">
@@ -84,7 +86,7 @@
 	  
 	  	<h2 class="text-center">Tous les articles</h2>
 
-					<div class="row my-5 mx-auto text-center col-2">
+					<div class="row my-5 mx-auto text-center col-4">
 						<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_article') }}">Ajouter un article</a>
 					</div>
 
@@ -253,7 +255,7 @@
       <div class="accordion-body">
 	  
 	  	<h2 class="text-center">Carousel</h2>
-<div class="row my-5 mx-auto text-center col-2">
+<div class="row my-5 mx-auto text-center col-4">
 						<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_carousel') }}">Ajouter une image</a>
 					</div>
 					<table class="table">

@@ -1,25 +1,19 @@
 <footer>
 	<ul class="footer">
 		<li>
-			<a href="{{path('mentions_legales')}}" class="text-muted">Mentions légales</a>
-		</li>
-		<li>
-			<a href="{{path('inscrire_newsletter')}}" class="text-muted">S'inscrire à la newsletter</a>
-		</li>
-		<li>
-			<a href="{{path('partage')}}" class="text-muted">Partage</a>
+			<a href="{{path('mentions_legales')}}">MENTIONS LÉGALES</a>
 		</li>
 			{% if not is_granted('ROLE_ADMIN') %}
 		<li>
-			<a href="{{path('app_login')}}" class="text-muted">Se connecter</a>
+			<a href="{{path('app_login')}}">SE CONNECTER</a>
 		</li>
 		{% else %}
 			<li>
-				<a href="{{ path('app_logout') }}" class="text-muted">Se déconnecter</a>
+				<a href="{{ path('app_logout') }}">SE DÉCONNECTER</a>
 			</li>
 			{% endif %}
 			<li>
-		<a class="text-muted">La Palme &copy;{{ "now"|date('Y') }}</a>
+		<a>LA PALME &copy; {{ "now"|date('Y') }}</a>
 		</li>
-	</ul>
+		
 </footer>

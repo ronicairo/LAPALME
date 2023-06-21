@@ -69,7 +69,7 @@ class UserFormType extends AbstractType
                 'label' => "Ajouter",
                 'validate' => false,
                 'attr'=>[
-                    'class' =>'d-block mx-auto my-3 col-4 btn btn-warning'
+                    'class' => "d-block mx-auto my-2 btn btn-outline-light col-4"
                 ]
             ])
         ;
