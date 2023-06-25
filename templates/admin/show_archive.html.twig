@@ -4,16 +4,16 @@
 {% endblock %}
 
 {% block body %}
-	<div class="row my-1 mx-auto"><div>
+	<h1 class="text-center my-1 text-white">Espace Archive</h1>
+
+	<div class="row my-3 mx-auto">
+		<div>
 			<a class=" btn btn-sm btn-outline-light" href="{{ path('show_dashboard') }}">
-		<i class="bi bi-arrow-left"></i>
+				<i class="bi bi-arrow-left"></i>
 				Retour au tableau de bord</a>
 		</div>
-	
-<h1 class="text-center my-1 text-white">Archives</h1>
-
 	</div>
-	
+
 
 	{# ################# FLASHES ################# #}
 	<div class="row my-1 mx-auto">
@@ -23,7 +23,8 @@
 	</div>
 	{# ################# FLASHES ################# #}
 
-		<div class="row my-1 mx-auto"> <div class="col-10 mx-auto my-2">
+	<div class="row my-1 mx-auto">
+		<div class="col-10 mx-auto my-2">
 
 			<h2 class="text-center">Article</h2>
 			<table class="table">
@@ -48,10 +49,10 @@
 							<td>{{ article.updatedAt | date('d/m/Y') }}</td>
 							<td>
 								<a href="{{ path('restore_article', {'id': article.id}) }}" class="btn btn-success" title="Restaurer l'article">
-	<i class="bi bi-reply"></i>
+									<i class="bi bi-reply"></i>
 								</a>
 								<a href="{{ path('hard_delete_article', {'id': article.id}) }}" class="btn btn-danger" title="Supprimer définitivement l'article" onclick="return confirm('Voulez-vous supprimer définitivement cet article ?')">
-				<i class="bi bi-trash"></i>
+									<i class="bi bi-trash"></i>
 								</a>
 							</td>
 
@@ -74,14 +75,14 @@
 			<table class="table">
 				<thead>
 					<tr class="text-center text-white">
-								<th>#</th>
-								<th>Date</th>
-								<th>Nom</th>
-								<th>Prénom</th>
-								<th>Email</th>
-								<th>Message</th>
-								<th>Action</th>
-							</tr>
+						<th>#</th>
+						<th>Date</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Email</th>
+						<th>Message</th>
+						<th>Action</th>
+					</tr>
 				</thead>
 
 				{% for message in messages %}
@@ -96,10 +97,10 @@
 							<td>{{ message.message }}</td>
 							<td>
 								<a href="{{ path('restore_message', {'id': message.id}) }}" class="btn btn-success" title="Restaurer le message">
-					<i class="bi bi-reply"></i>
+									<i class="bi bi-reply"></i>
 								</a>
 								<a href="{{ path('hard_delete_message', {'id': message.id}) }}" class="btn btn-danger" title="Supprimer définitivement le message" onclick="return confirm('Voulez-vous supprimer définitivement ce message ?')">
-				<i class="bi bi-trash"></i>
+									<i class="bi bi-trash"></i>
 								</a>
 							</td>
 						</tr>
@@ -120,43 +121,44 @@
 		<div class="col-10 mx-auto my-4">
 
 			<h2 class="text-center">Réservation</h2>
-				<table class="table">
-						<thead>
-						<tr class="text-center text-white">
-								<th>#</th>
-								<th>Nom</th>
-								<th>Prénom</th>
-								<th>Email</th>
-								<th>Nombre de personnes</th>
-								<th>Date et heure</th>
-								<th>Action</th>
-							</tr>
-						</thead>
+			<table class="table">
+				<thead>
+					<tr class="text-center text-white">
+						<th>#</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Email</th>
+						<th>Nombre de personnes</th>
+						<th>Date et heure</th>
+						<th>Action</th>
+					</tr>
+				</thead>
 
 				{% for reservation in reservations %}
 
-							<tbody>
-									<tr class="text-center text-white">
-									<td>{{ reservation.id }}</td>
-									<td>{{ reservation.nom }}</td>
-									<td>{{ reservation.prenom }}</td>
-									<td>{{ reservation.email }}</td>
-									<td>{{ reservation.personne }}</td>
-									<td>{{ reservation.date | date('d/m/Y à H:i') }}</td>
-									<td>
-											<a href="{{ path('restore_reservation', {'id': reservation.id}) }}" class="btn btn-success" title="Restaurer la réservation">
-				<i class="bi bi-reply"></i>
+					<tbody>
+						<tr class="text-center text-white">
+							<td>{{ reservation.id }}</td>
+							<td>{{ reservation.nom }}</td>
+							<td>{{ reservation.prenom }}</td>
+							<td>{{ reservation.email }}</td>
+							<td>{{ reservation.personne }}</td>
+							<td>{{ reservation.date | date('d/m/Y à H:i') }}</td>
+							<td>
+								<a href="{{ path('restore_reservation', {'id': reservation.id}) }}" class="btn btn-success" title="Restaurer la réservation">
+									<i class="bi bi-reply"></i>
 								</a>
 								<a href="{{ path('hard_delete_reservation', {'id': reservation.id}) }}" class="btn btn-danger" title="Supprimer définitivement la réservation" onclick="return confirm('Voulez-vous supprimer définitivement cette réservation ?')">
-						<i class="bi bi-trash"></i></a>
-									</td>
-								</tr>
-									{% else %}
-						<tr>
-							<td colspan="7" class="bg-secondary text-center">Aucune réservation</td>
+									<i class="bi bi-trash"></i>
+								</a>
+							</td>
 						</tr>
-			
-							{% endfor %}
+					{% else %}
+						<tr>
+							<td colspan="7" class="bg-secondary text-center">Aucune réservation archivée</td>
+						</tr>
+
+					{% endfor %}
 
 
 				</tbody>
@@ -164,47 +166,48 @@
 
 		</div>
 
-	<div class="col-10 mx-auto my-4">
+		<div class="col-10 mx-auto my-4">
 
 			<h2 class="text-center">Carousel</h2>
-		<table class="table">
-						<thead>
-							<tr class="text-center text-white">
-								<th>#</th>
-								<th>Titre</th>
-								<th>Image</th>
-								<th>Crée le</th>
-								<th>Modifié le</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
+			<table class="table">
+				<thead>
+					<tr class="text-center text-white">
+						<th>#</th>
+						<th>Titre</th>
+						<th>Image</th>
+						<th>Crée le</th>
+						<th>Modifié le</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
 
-							{% for carousel in carousels %}
-									<tr class="text-center text-white">
-									<td>{{ carousel.id }}</td>
-									<td>{{ carousel.titre }}</td>
-									<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ carousel.photo) }}"></td>
-									<td>{{ carousel.createdAt | date('d/m/Y') }}</td>
-									<td>{{ carousel.updatedAt | date('d/m/Y') }}</td>
-								<td>
-											<a href="{{ path('restore_carousel', {'id': carousel.id}) }}" class="btn btn-success" title="Restaurer l'image du carousel">
-				<i class="bi bi-reply"></i>
+					{% for carousel in carousels %}
+						<tr class="text-center text-white">
+							<td>{{ carousel.id }}</td>
+							<td>{{ carousel.titre }}</td>
+							<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ carousel.photo) }}"></td>
+							<td>{{ carousel.createdAt | date('d/m/Y') }}</td>
+							<td>{{ carousel.updatedAt | date('d/m/Y') }}</td>
+							<td>
+								<a href="{{ path('restore_carousel', {'id': carousel.id}) }}" class="btn btn-success" title="Restaurer l'image du carousel">
+									<i class="bi bi-reply"></i>
 								</a>
 								<a href="{{ path('hard_delete_carousel', {'id': carousel.id}) }}" class="btn btn-danger" title="Supprimer définitivement l'image du carousel" onclick="return confirm('Voulez-vous supprimer définitivement cette image ?')">
-						<i class="bi bi-trash"></i></a>
-									</td>
+									<i class="bi bi-trash"></i>
+								</a>
+							</td>
 
-								</tr>
-							{% else %}
-								<tr>
-									<td colspan="7" class="bg-secondary text-center">Aucune image</td>
-								</tr>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7" class="bg-secondary text-center">Aucune image archivée</td>
+						</tr>
 
-							{% endfor %}
-						</tbody>
-					</table>
+					{% endfor %}
+				</tbody>
+			</table>
 
-	</div>
+		</div>
 
-{% endblock %}
+	{% endblock %}

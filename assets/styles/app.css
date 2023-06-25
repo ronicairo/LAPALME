@@ -15,7 +15,7 @@ body {
 
 
 #content {
-    flex-grow: 1;
+    flex-grow: 2;
     background-color: #222222;
     color: #ffffff;
     font-family: 'DM Serif Display', serif;
@@ -89,6 +89,7 @@ nav#menu ul li a:hover {
     font-weight: bold;
     color: #ffffff;
 }
+
 
 main {
     padding-bottom: 45px;
@@ -186,6 +187,8 @@ h1 {
 
 footer {
     background-color: #222222;
+    display: flex;
+    flex-direction: column;
 }
 
 .footer {
@@ -203,6 +206,16 @@ footer {
 footer ul li a {
     color: #222222;
     text-decoration: none;
+}
+
+footer ul li a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.reseaux a svg {
+    text-decoration: none;
+    color: #222222;
 }
 
 /* CAROUSEL */
@@ -297,7 +310,7 @@ footer ul li a {
     transition: 0.5s all ease;
 }
 
-.reveal.active {
+.reveal.activ {
     transform: translateY(0);
     opacity: 1;
 }
@@ -327,7 +340,7 @@ button:hover {
     border: 5px solid #222222;
 }
 
-.container {
+.reservez {
     display: flex;
     align-items: center;
     justify-content: center;

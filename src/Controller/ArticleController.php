@@ -48,7 +48,6 @@ class ArticleController extends AbstractController
         ]);
     } // end createArticle()
 
-
     #[Route('/modifier-un-article{id}', name: 'update_article', methods: ['GET', 'POST'])]
     public function updateArticle(Article $article, Request $request, ArticleRepository $repository, SluggerInterface $slugger): Response
     {

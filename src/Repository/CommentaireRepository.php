@@ -41,8 +41,8 @@ class CommentaireRepository extends ServiceEntityRepository
 
     public function findAllArchived()
     {
-        return $this->createQueryBuilder('co') // Première lettre de l'entité (article) / Comme si on faisait un # SELECT * FROM category
-        ->where('co.deletedAt IS NOT NULL') # WHERE deleted_at IS NOT NULL
+        return $this->createQueryBuilder('c') 
+        ->where('c.deletedAt IS NOT NULL') 
         ->getQuery() # Permet de récupérer la requête SQL
         ->getResult() # Permet de récupérer els résultats de la requête
         ;

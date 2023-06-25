@@ -35,7 +35,7 @@ class CommentaireFormType extends AbstractType
                         ])]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "Commentez",
+                'label' => "Commenter",
                 'label_html' => true, # Permet d'interpréter le HTML dans le label
                 'validate' => false,
                 'attr' => [

@@ -11,6 +11,8 @@
 
 		{# IMG ACCUEIL #}
 
+<h1 style='display:none;'>Restaurant La Palme - Nogent-sur-Oise</h1>
+
 		<section class="d-block w-100 d-lg-none">
 			<img src="./accueil2.png" alt="" class="img-fluid">
 		</section>
@@ -22,106 +24,135 @@
 
 		{# CAROUSEL #}
 
-<div class="reveal">
-		<div class="carrousel">
-			<div class="reglette">
-				{% for carousel in carousels %}
-					<figure>
-						<img style="border:20px;" src="{{ asset('uploads/' ~ carousel.photo) }}" alt="{{ asset('uploads/' ~ carousel.titre) }}">
-					</figure>
-				{% endfor %}
-			</div>
-
-			<div class="previous">
-				<i class="fa-solid fa-chevron-left"></i>
-			</div>
-			<div class="next">
-				<i class="fa-solid fa-chevron-right"></i>
-			</div>
-		</div>
-
-		<div class="container mb-5">
-			<a href="{{ path('register_reservation') }}">
-				<button type="button">Réservez</button>
-			</a>
-		</div>
-		</div>
-
-
-		{# ARTICLE #}
-
-		{% for article in articles %}
-			<div class="row col-12 reveal text-center" style="padding:30px;">
-
-				<div class="col-md-7">
-					<img src="{{ asset('uploads/') ~ article.photo }}" class="img-fluid rounded text-center" style="max-height: 500px; margin-bottom: 50px;" alt={{ article.titre }}>
-				</div>
-				<div class="col-md-5 text-center align-self-center">
-					<h2 class="text-light" style="text-decoration:underline;">{{ article.titre }}</h2>
-					<h2 class="text-secondary">{{ article.soustitre }}</h2>
-					<p class="text-light">{{ article.contenu}}</p>
-				</div>
-			</div>
-		{% endfor %}
-
-
-		{# VALEURS #}
 		<div class="reveal">
-			<h2 class="featurette-heading fw-normal lh-1 mt-2 text-center d-block w-100 d-none d-lg-block">Nos valeurs</h2>
-			<div class="marketing text-center">
+			<div class="carrousel">
+				<div class="reglette">
+					{% for carousel in carousels %}
+						<figure>
+							<img style="border:20px;" src="{{ asset('uploads/' ~ carousel.photo) }}" alt="{{ asset('uploads/' ~ carousel.titre) }}">
+						</figure>
+					{% endfor %}
+				</div>
 
-				<div class="row p-3">
-					<div class="col-lg-4">
-						<img class="bd-placeholder-img rounded" width="140" height="140" src="./prix_qualite.jpg" role="img" aria-label="Placeholder: 140x140" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em"></text>
+				<div class="previous">
+					<i class="fa-solid fa-chevron-left"></i>
+				</div>
+				<div class="next">
+					<i class="fa-solid fa-chevron-right"></i>
+				</div>
+			</div>
 
-						<h2 class="fw-normal mt-4">Rapport Qualité/Prix
-						</h2>
+			{# RESERVEZ #}
+			<div class="reservez mb-5">
+				<a href="{{ path('register_reservation') }}">
+					<button type="button">Réservez</button>
+				</a>
+			</div>
+		</div>
+
+		<div class="container">
+			<hr
+			class="mt-2 mb-5">
+
+			{# ARTICLE #}
+
+			{% for article in articles %}
+				<div class="row col-12 reveal text-center" style="padding:30px;">
+
+					<div class="col-md-7">
+						<img src="{{ asset('uploads/') ~ article.photo }}" class="img-fluid rounded text-center" style="max-height: 500px; margin-bottom: 50px;" alt={{ article.titre }}>
 					</div>
-
-					<div class="col-lg-4">
-						<img class="bd-placeholder-img rounded" width="140" height="140" src="./logo_halal.png" role="img" aria-label="Placeholder: 140x140" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em"></text>
-						<h2 class="fw-normal mt-4">Certification Halal</h2>
-							</div>
-		
-					<div class="col-lg-4">
-						<img class="bd-placeholder-img rounded" width="140" height="140" src="./diversite.webp" role="img" aria-label="Placeholder: 140x140" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em"></text>
-						<h2 class="fw-normal mt-4">Diversité</h2>
+					<div class="col-md-5 text-center align-self-center">
+						<h2 class="text-light" style="text-decoration:underline;">{{ article.titre }}</h2>
+						<h2 class="text-secondary">{{ article.soustitre }}</h2>
+						<p class="text-light">{{ article.contenu}}</p>
 					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+		{# GALERIE #}
+
+		<div class="container reveal">
+
+			<hr class="mt-2 mb-5">
+
+			<div class="row text-center text-lg-start">
+				{% for galerie in galeries %}
+					<div class="col-lg-4 col-md-3 text-center">
+						<a class="d-block mb-4">
+							<img class="img-fluid rounded" style="object-fit: cover; height: 300px; width:300px;" src="{{ asset('uploads/') ~ galerie.img }}" alt="{{ galerie.titre }}">
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="container reveal">
+			<hr
+			class="mt-2 mb-5">
+
+			{# VALEURS #}
+			
+				<h2 class="featurette-heading fw-normal lh-1 mt-2 text-center d-block w-100 d-none d-lg-block">Nos valeurs</h2>
+				<div class="marketing text-center">
+
+					<div class="row p-3">
+						<div class="col-lg-4">
+							<img class="bd-placeholder-img rounded" width="140" height="140" src="./prix_qualite.jpg" role="img" aria-label="Placeholder: 140x140" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em"></text>
+
+							<h2 class="fw-normal mt-4">Rapport Qualité/Prix
+							</h2>
+						</div>
+
+						<div class="col-lg-4">
+							<img class="bd-placeholder-img rounded" width="140" height="140" src="./logo_halal.png" role="img" aria-label="Placeholder: 140x140" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em"></text>
+							<h2 class="fw-normal mt-4">Certification Halal</h2>
+						</div>
+
+						<div class="col-lg-4">
+							<img class="bd-placeholder-img rounded" width="140" height="140" src="./diversite.webp" role="img" aria-label="Placeholder: 140x140" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em"></text>
+							<h2 class="fw-normal mt-4">Diversité</h2>
+						</div>
+
+					</div>
+				</div>
+			
+
+		</div>
+
+		<div class="container reveal">
+			<hr
+			class="mt-2 mb-5">
+
+			{# COMMENTAIRE #}
+			<div class="row">
+				<div class="col-6 mx-auto">
+
+					{% for commentaire in commentaires | reverse %}
+
+						<div class="alert alert-dark mb-3" role="alert">
+							{% if is_granted('ROLE_ADMIN') %}
+								<a href="{{ path('hard_delete_commentaire', {'id': commentaire.id}) }}">
+									<i class="bi bi-x d-flex flex-row-reverse"></i>
+								</a>
+							{% endif %}
+
+							<h4 class="alert-heading">{{ commentaire.nom}}
+								<span class="h6">posté
+									{{ commentaire.createdAt | ago(locale='fr') }}</span>
+							</h4>
+							<p class="text-dark">{{ commentaire.commentaire | raw }}</p>
+						</div>
+					{% else %}
+						<div class="alert alert-dark alert-warning mb-3 mt-5" role="alert">
+							<p class="fw-bolder text-dark text-center mx-auto">Aucun commentaire</p>
+						</div>
+					{% endfor %}
 
 				</div>
 			</div>
 		</div>
-
-		{# COMMENTAIRE #}
-		<div class="row">
-			<div class="col-6 mx-auto">
-
-				{% for commentaire in commentaires | reverse %}
-
-					<div class="alert alert-dark mb-3" role="alert">
-						{% if is_granted('ROLE_ADMIN') %}
-							<a href="{{ path('hard_delete_commentaire', {'id': commentaire.id}) }}">
-								<i class="bi bi-x d-flex flex-row-reverse"></i>
-							</a>
-						{% endif %}
-
-						<h4 class="alert-heading">{{ commentaire.nom}}
-							<span class="h6">posté
-								{{ commentaire.createdAt | ago(locale='fr') }}</span>
-						</h4>
-						<p class="text-dark">{{ commentaire.commentaire | raw }}</p>
-
-
-					</div>
-				{% else %}
-					<div class="alert alert-dark alert-warning mb-3" role="alert">
-						<p class="fw-bolder text-dark text-center mx-auto">Aucun commentaire</p>
-					</div>
-				{% endfor %}
-
-			</div>
-		</div>
-
 
 	</main>
 

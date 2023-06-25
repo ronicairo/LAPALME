@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\User;
 use App\Form\UserFormType;
 use App\Repository\UserRepository;
+use App\Form\ChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
-    #[Route('/inscription', name:'register', methods: ['GET', 'POST'])]
+    #[Route('/inscription', name: 'register', methods: ['GET', 'POST'])]
     public function register(Request $request, UserRepository $repository, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
-   
+
         $user = new User();
 
         $form = $this->createForm(UserFormType::class, $user)
@@ -29,7 +30,7 @@ class UserController extends AbstractController
             $user->setCreatedAt(new DateTime());
             $user->setUpdatedAt(new DateTime());
 
-             $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
+            $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
 
             $user->setRoles(['ROLE_ADMIN']);
 
@@ -52,55 +53,70 @@ class UserController extends AbstractController
 
         return $this->render('user/register_form.html.twig', [
             'form' => $form->createView(),
-            'users'=>$users
+            'users' => $users
         ]);
     }
 
     // ------------------------------ HARD-DELETE-ARTICLE -------------------------------
-#[Route('/supprimer-un-user/{id}', name: 'soft_delete_user', methods: ['GET'])]
-public function softDeleteUser(User $user, UserRepository $repository): Response
+    #[Route('/supprimer-un-user/{id}', name: 'hard_delete_user', methods: ['GET'])]
+    public function softDeleteUser(User $user, UserRepository $repository): Response
 
-{
-
-    $user->setDeletedAt(new DateTime());
-
-    $repository->remove($user, true);
-
-    $this->addFlash('success', "Le compte a bien été supprimé.");
-    // return $this->render('admin/register_form.html.twig');
-    return $this->redirectToRoute('register');
-
-} // end hardDeleteArticle()
-
-#[Route('/modifier-un-user{id}', name: 'update_user', methods: ['GET', 'POST'])]
-    public function updateChambre(User $user, Request $request, UserRepository $repository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
 
-        $form = $this->createForm(UserFormType::class, $user)
+        $user->setDeletedAt(new DateTime());
+
+        $repository->remove($user, true);
+
+        $this->addFlash('success', "Le compte a bien été supprimé.");
+        // return $this->render('admin/register_form.html.twig');
+        return $this->redirectToRoute('register');
+    } // end hardDeleteArticle()
+
+    #[Route('/profile/voir-mon-compte', name: 'show_profile', methods: ['GET'])]
+    public function showProfile(EntityManagerInterface $entityManager): Response
+    {
+        $articles = $entityManager->getRepository(Article::class)->findBy(['author' => $this->getUser()]);
+        $commentaries = $entityManager->getRepository(Commentary::class)->findBy(['author' => $this->getUser()]);
+
+        return $this->render('user/show_profile.html.twig', [
+            'articles' => $articles,
+            'commentaries' => $commentaries
+        ]);
+    } // end showProfile()
+
+    #[Route('/changer-mon-mot-de-passe', name: 'change_password', methods: ['GET', 'POST'])]
+    public function changePassword(Request $request, UserRepository $repository, UserPasswordHasherInterface $hasher): Response
+    {
+        $form = $this->createForm(ChangePasswordFormType::class)
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            # Récupérer le User en BDD
+            $user = $repository->find($this->getUser());
 
-            $user->setCreatedAt(new DateTime());
+
+            // ------ VERIFICATION DU MOT DE PASSE ------ //
+            $currentPassword = $form->get('currentPassword')->getData();
+
+            if (!$hasher->isPasswordValid($user, $currentPassword)) {
+                $this->addFlash('warning', "Le mot de passe actuel n'est pas valide");
+                return $this->redirectToRoute('change_password');
+            }
+
             $user->setUpdatedAt(new DateTime());
-        
 
-            // $user->setAuthor($this->getUser());
+            $plainPassword = $form->get('plainPassword')->getData();
 
-            $user->setPassword(
-                $passwordHasher->hashPassword($user, $user->getPassword())
-            );
+            $user->setPassword($hasher->hashPassword($user, $plainPassword));
+
             $repository->save($user, true);
 
-            $this->addFlash('success', "L'utilisateur a bien eté modifié avec succès !");
-            // return $this->redirectToRoute(('show_dashboard'));
+            $this->addFlash('success', "Votre mot de passe a bien été modifié");
+            return $this->redirectToRoute('show_dashboard');
         }
-        $users=$entityManager->getRepository(User::class)->findAll();
-        return $this->render('user/register_form.html.twig', [
-            'form' => $form->createView(),
-            'users' => $users
 
+        return $this->render('user/change_password_form.html.twig', [
+            'form' => $form->createView()
         ]);
-    }
-
+    } // end changePassword()
 }

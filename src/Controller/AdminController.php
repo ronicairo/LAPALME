@@ -7,6 +7,7 @@ use App\Entity\Article;
 use App\Entity\Contact;
 use App\Entity\Carousel;
 use App\Entity\Commentaire;
+use App\Entity\Galerie;
 use App\Entity\Reservation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,7 @@ class AdminController extends AbstractController
         $reservations = $entityManager->getRepository(Reservation::class)->findBy(['deletedAt' => null]);
         $carousels = $entityManager->getRepository(Carousel::class)->findBy(['deletedAt' => null]);
         $commentaires = $entityManager->getRepository(Commentaire::class)->findBy(['deletedAt' => null]);
+        $galeries = $entityManager->getRepository(Galerie::class)->findBy(['deletedAt' => null]);
 
         return $this->render('admin/show_dashboard.html.twig', [
             'articles' => $articles,
@@ -43,6 +45,7 @@ class AdminController extends AbstractController
             'reservations' => $reservations,
             'carousels' => $carousels,
             'commentaires' => $commentaires,
+            'galeries' => $galeries,
 
         ]);
     } // end showDashboard

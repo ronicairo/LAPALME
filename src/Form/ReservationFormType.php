@@ -24,7 +24,13 @@ class ReservationFormType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ ne peut être vide.',
-                    ])
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'max' => 180,
+                        'minMessage' => 'Votre nom doit comporter au minimum {{ limit }} caractères.(nom : {{ value }})',
+                        'maxMessage' => 'Votre nom doit comporter au maximum {{ limit }} caractères.',
+                    ]),
                 ]
             ])
             ->add('prenom', TextType::class, [
@@ -32,7 +38,13 @@ class ReservationFormType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ ne peut être vide.',
-                    ])
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'max' => 180,
+                        'minMessage' => 'Votre prénom doit comporter au minimum {{ limit }} caractères.(prénom : {{ value }})',
+                        'maxMessage' => 'Votre prénom doit comporter au maximum {{ limit }} caractères.',
+                    ]),
                 ]
             ])
             ->add('date', DateTimeType::class, [
@@ -62,7 +74,7 @@ class ReservationFormType extends AbstractType
                         'message' => 'Ce champ ne peut etre vide : {{ value }}'
                     ]),
                     new Length([
-                        'min' => 4,
+                        'min' => 6,
                         'max' => 180,
                         'minMessage' => 'Votre email doit comporter au minimum {{ limit }} caractères.(email : {{ value }})',
                         'maxMessage' => 'Votre email doit comporter au maximum {{ limit }} caractères.',

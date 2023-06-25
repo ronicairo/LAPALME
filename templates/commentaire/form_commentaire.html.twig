@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 
-{% block title %}La Palme - Avis{% endblock %}
+{% block title %}Avis - La Palme
+{% endblock %}
 
 {% block body %}
 
@@ -22,15 +23,15 @@
 			<div class="screen-body">
 				<div class="screen-body-item left">
 					<div class="app-title">
-						<span class="text-center">Espace Commentaire</span>
+						<h1><span class="text-center">Espace Commentaire</span></h1>
 					</div>
-          					<div class="col-6 mx-auto">
-					<div class="row">
-						<div class="app-form-control">{{ form_row(form.nom) }}</div>
-					</div>
-					<div class="row">
-						<div class="app-form-control">{{ form_row(form.commentaire) }}</div>
-					</div>
+					<div class="col-6 mx-auto">
+						<div class="row">
+							<div class="app-form-control">{{ form_row(form.nom) }}</div>
+						</div>
+						<div class="row">
+							<div class="app-form-control">{{ form_row(form.commentaire) }}</div>
+						</div>
 					</div>
 
 					{{ form_row(form.submit) }}
@@ -41,9 +42,4 @@
 			</div>
 		</div>
 	</div>
-</div>
-</div>
-</div>
-
-
-{% endblock %}
+</div></div></div>{% endblock %}

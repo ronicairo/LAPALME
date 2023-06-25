@@ -38,7 +38,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-#[Route('/modifier-une-reservation{id}', name: 'update_reservation', methods: ['GET', 'POST'])]
+    #[Route('/modifier-une-reservation{id}', name: 'update_reservation', methods: ['GET', 'POST'])]
 public function updateReservation(Reservation $reservation, Request $request, ReservationRepository $repository): Response
 {
     $form = $this->createForm(ReservationFormType::class, $reservation)
