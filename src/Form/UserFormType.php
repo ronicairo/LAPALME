@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,6 +32,9 @@ class UserFormType extends AbstractType
                     'minMessage' =>'Votre email doit comporter au minimum {{ limit }} caractères.(email : {{ value }})',
                     'maxMessage' =>'Votre email doit comporter au maximum {{ limit }} caractères.(email : {{ value }})',
                 ]),
+                new Email([
+                    'message' => 'Veuillez saisir un email valide.',
+                ]),
             ],
         ])
   
@@ -47,8 +52,13 @@ class UserFormType extends AbstractType
                         'minMessage' =>'Votre mot de passe doit comporter au minimum {{ limit }} caractères.',
                         'maxMessage' =>'Votre mot de passe doit comporter au maximum {{ limit }} caractères.',
                     ]),
+                    new Regex([
+                        'pattern' => '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
+                        'message' => 'Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.',
+                    ]),
                 ],
             ])
+
             ->add('lastname', TextType::class, [
                 'label' => "Prénom",
                 'constraints' => [
@@ -79,6 +89,7 @@ class UserFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+
         ]);
     }
 }

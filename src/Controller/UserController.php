@@ -34,10 +34,6 @@ class UserController extends AbstractController
 
             $user->setRoles(['ROLE_ADMIN']);
 
-
-            # On doit resseter manuellement la valeur du password, car par défaut il n'est pas hashé.
-            # Pour cela, nous devons utiliser une méthode de hashage appelée hashPassword() :
-            #   => cette méthode attend 2 arguments : $user, $plainPassword
             $user->setPassword(
                 $passwordHasher->hashPassword($user, $user->getPassword())
             );
@@ -45,7 +41,7 @@ class UserController extends AbstractController
             $repository->save($user, true);
 
             $this->addFlash('success', "Votre inscription a été correctement enregistrée");
-            //return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('show_dashboard');
 
         }
 
@@ -57,7 +53,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    // ------------------------------ HARD-DELETE-ARTICLE -------------------------------
     #[Route('/supprimer-un-user/{id}', name: 'hard_delete_user', methods: ['GET'])]
     public function softDeleteUser(User $user, UserRepository $repository): Response
 
@@ -69,20 +64,9 @@ class UserController extends AbstractController
 
         $this->addFlash('success', "Le compte a bien été supprimé.");
         // return $this->render('admin/register_form.html.twig');
-        return $this->redirectToRoute('register');
+        return $this->redirectToRoute('show_dashboard');
     } // end hardDeleteArticle()
 
-    #[Route('/profile/voir-mon-compte', name: 'show_profile', methods: ['GET'])]
-    public function showProfile(EntityManagerInterface $entityManager): Response
-    {
-        $articles = $entityManager->getRepository(Article::class)->findBy(['author' => $this->getUser()]);
-        $commentaries = $entityManager->getRepository(Commentary::class)->findBy(['author' => $this->getUser()]);
-
-        return $this->render('user/show_profile.html.twig', [
-            'articles' => $articles,
-            'commentaries' => $commentaries
-        ]);
-    } // end showProfile()
 
     #[Route('/changer-mon-mot-de-passe', name: 'change_password', methods: ['GET', 'POST'])]
     public function changePassword(Request $request, UserRepository $repository, UserPasswordHasherInterface $hasher): Response

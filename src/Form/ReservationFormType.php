@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Reservation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -64,7 +65,7 @@ class ReservationFormType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ ne peut contenir uniquement des caractères numériques (0-9).',
-                    ])
+                    ]),
                 ]
             ])
             ->add('email', EmailType::class, [
@@ -78,6 +79,9 @@ class ReservationFormType extends AbstractType
                         'max' => 180,
                         'minMessage' => 'Votre email doit comporter au minimum {{ limit }} caractères.(email : {{ value }})',
                         'maxMessage' => 'Votre email doit comporter au maximum {{ limit }} caractères.',
+                    ]),
+                    new Email([
+                        'message' => 'Veuillez saisir un email valide.',
                     ]),
                 ],
             ])
