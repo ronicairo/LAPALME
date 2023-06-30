@@ -24,7 +24,7 @@ class ReservationFormType extends AbstractType
                 'label' => "Nom",
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Ce champ ne peut être vide.',
+                        'message' => 'Ce champ ne peut être vide. Veuillez entrer votre nom.',
                     ]),
                     new Length([
                         'min' => 2,
@@ -38,7 +38,7 @@ class ReservationFormType extends AbstractType
                 'label' => "Prénom",
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Ce champ ne peut être vide.',
+                        'message' => 'Ce champ ne peut être vide. Veuillez entrer votre prénom.',
                     ]),
                     new Length([
                         'min' => 2,

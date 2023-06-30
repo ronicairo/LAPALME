@@ -6,7 +6,9 @@ use DateTime;
 use App\Entity\Reservation;
 use App\Form\ReservationFormType;
 use App\Repository\ReservationRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ReservationController extends AbstractController
 {
     #[Route('/reservation', name: 'register_reservation')]
-    public function reservationPlace(Request $request, ReservationRepository $repository): Response
+    public function reservationPlace(Request $request, ReservationRepository $repository, MailerInterface $mailer): Response
     {
         $reservation = new Reservation();
 
@@ -28,6 +30,24 @@ class ReservationController extends AbstractController
 
             $repository->save($reservation, true);
             
+           //email
+           $email = (new TemplatedEmail())
+           ->from($reservation->getEmail())
+           ->to('contact@restaurant-lapalme.fr')
+           //->cc('cc@example.com')
+           //->bcc('bcc@example.com')
+           //->replyTo('fabien@example.com')
+           //->priority(Email::PRIORITY_HIGH)
+           ->subject($reservation->getNom())
+           ->text('Réservation pour {{reservation.date}} personne')
+           ->htmlTemplate('admin/email_reservation.html.twig')
+
+           ->context([
+               'reservation' => $reservation,
+           ]);
+
+       $mailer->send($email);
+          
             $message = "Votre réservation a été prise en compte";
             $this->addFlash('success', $message);
             return $this->redirectToRoute('show_home');

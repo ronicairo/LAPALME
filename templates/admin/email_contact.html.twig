@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>Vous avez reçu une demande de la part de {{contact.nom}} {{contact.prenom}}</h1>
+		<p>Email : {{contact.email}}</p> <br>
+	
+		<div>
+			<p>{{contact.message | raw }}</p>
+		</div>
+
+	</body>
+</html>
