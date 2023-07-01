@@ -4,16 +4,8 @@
 		<meta charset="UTF-8">
 	</head>
 	<body>
-		<h1>Demande de
-			{{reservation.nom}}
-			{{reservation.prenom}}
-		</h1>
-		<p>Email :
-			{{reservation.email}}</p>
-		<p>Message :</p>
-		<div>
-			<p>d</p>
-		</div>
-
+		<h3>Vous avez reçu une réservation de la part de {{reservation.nom}} {{reservation.prenom}} pour le {{reservation.date | date('Y-m-d H:i:s')}}</h3> <br>
+		<h4>Email : {{reservation.email}}</h4>
+	<h5>Nombre de personne : {{reservation.personne}}</h5>
 	</body>
 </html>

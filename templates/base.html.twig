@@ -3,10 +3,18 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="description" content="Situé à Nogent-sur-Oise, notre restaurant propose un menu varié préparés avec des ingrédients frais et de saison. Profitez d'une ambiance chaleureuse et d'un service attentif dans notre nouvelle terrasse.">
-
 		<title>
 			{% block title %}La Palme : Restaurant Halal et Traditionnel{% endblock %}
 		</title>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKFN48WXWV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FKFN48WXWV');
+</script>
 		<link
 			<link rel="icon" type="png" href="{{ asset('/img/favicon.png') }}" />
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}

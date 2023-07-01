@@ -38,8 +38,7 @@ class ReservationController extends AbstractController
            //->bcc('bcc@example.com')
            //->replyTo('fabien@example.com')
            //->priority(Email::PRIORITY_HIGH)
-           ->subject($reservation->getNom())
-           ->text('Réservation pour {{reservation.date}} personne')
+           ->subject("La Palme - Réservation de  " . $reservation->getPrenom() . " "  . $reservation->getNom() . ".")
            ->htmlTemplate('admin/email_reservation.html.twig')
 
            ->context([
