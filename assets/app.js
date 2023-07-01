@@ -41,7 +41,6 @@ window.addEventListener('resize',function(){
     if (this.window.innerWidth >= 850) {
         menu.classList.remove('deployer','transition');
     }
-
 });
 
 // Controle de presence de l'élément sur la page en cours
@@ -112,7 +111,18 @@ if( document.querySelector('.carrousel') ){
         },1000);
 
     }
+    
+    let timer1 = setInterval(carrouselNext,3000);
 
+    // mettre en place une pause quand la souris rentre sur le carrousel
+    carrousel.addEventListener('mouseenter',function(){
+        clearInterval(timer1);
+    });
+
+    carrousel.addEventListener('mouseleave',function(){
+        clearInterval(timer1); // par sécurité on arrête un eventuel redémarrage
+        timer1 =  setInterval(carrouselNext,3000);
+    });
 
     document.querySelector('.previous').addEventListener('click',carrouselPrevious);
     document.querySelector('.next').addEventListener('click',carrouselNext);
