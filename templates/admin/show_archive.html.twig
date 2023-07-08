@@ -4,11 +4,11 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center my-1 mt-5 text-white">Espace Archive</h1>
+	<h1 class="text-center my-1 mt-4 text-white">Espace Archive</h1>
 
 	<div class="row my-3 mx-auto">
 		<div>
-			<a class=" btn btn-sm btn-outline-light" href="{{ path('show_dashboard') }}">
+			<a class="btn btn-sm btn-outline-light mt-4" href="{{ path('show_dashboard') }}">
 				<i class="bi bi-arrow-left"></i>
 				Retour au tableau de bord</a>
 		</div>
@@ -17,7 +17,7 @@
 
 	{# ################# FLASHES ################# #}
 	<div class="row my-1 mx-auto">
-		<div class="col-6 mx-auto">
+		<div class="col-11 mx-auto">
 			{% include 'include/_flashes.html.twig' %}
 		</div>
 	</div>
@@ -25,6 +25,13 @@
 
 	<div class="row my-1 mx-auto">
 		<div class="col-10 mx-auto my-2">
+
+
+			<div class="row my-5 mx-auto text-center col-4">
+						<a href="{{ path('delete_all_article_archive') }}" class="btn btn-danger" title="Supprimer définitivement tous les articles" onclick="return confirm('Voulez-vous supprimer définitivement tous les articles archivés ?')">
+									<i class="bi bi-trash"> Tout supprimer</i>
+								</a>
+					</div>
 
 			<h2 class="text-center">Article</h2>
 			<table class="table">
@@ -72,6 +79,13 @@
 		<div class="col-10 mx-auto my-4">
 
 			<h2 class="text-center">Message</h2>
+
+			<div class="row my-5 mx-auto text-center col-4">
+						<a href="{{ path('delete_all_message_archive') }}" class="btn btn-danger" title="Supprimer définitivement les messages" onclick="return confirm('Voulez-vous supprimer définitivement tous les messages archivés ?')">
+									<i class="bi bi-trash"> Tout supprimer</i>
+								</a>
+					</div>
+
 			<table class="table">
 				<thead>
 					<tr class="text-center text-white">
@@ -121,6 +135,13 @@
 		<div class="col-10 mx-auto my-4">
 
 			<h2 class="text-center">Réservation</h2>
+
+						<div class="row my-5 mx-auto text-center col-4">
+						<a href="{{ path('delete_all_reservation_archive') }}" class="btn btn-danger" title="Supprimer définitivement toutes les réservations" onclick="return confirm('Voulez-vous supprimer définitivement toutes les réservations archivées ?')">
+									<i class="bi bi-trash"> Tout supprimer</i>
+								</a>
+					</div>
+
 			<table class="table">
 				<thead>
 					<tr class="text-center text-white">
@@ -169,6 +190,14 @@
 		<div class="col-10 mx-auto my-4">
 
 			<h2 class="text-center">Carousel</h2>
+
+
+			<div class="row my-5 mx-auto text-center col-4">
+						<a href="{{ path('delete_all_carousel_archive') }}" class="btn btn-danger" title="Supprimer définitivement les images du carousel" onclick="return confirm('Voulez-vous supprimer définitivement tous les images du carousel archivés ?')">
+									<i class="bi bi-trash"> Tout supprimer</i>
+								</a>
+					</div>
+
 			<table class="table">
 				<thead>
 					<tr class="text-center text-white">

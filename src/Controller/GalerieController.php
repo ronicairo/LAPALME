@@ -95,7 +95,7 @@ class GalerieController extends AbstractController
 
         unlink($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $img);
        
-        $this->addFlash('success', "La galerie a bien été supprimé définitivement !");
+        $this->addFlash('success', "L'image a bien été supprimé définitivement de la galerie !");
         return $this->redirectToRoute(('show_archive'));
     } // end hardDeleteGalerie
 

@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Contact;
 use App\Form\ContactFormType;
 use App\Repository\ContactRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,32 +29,32 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-        $contact->setCreatedAt(new DateTime());
-        $contact->setUpdatedAt(new DateTime());
+            $contact->setCreatedAt(new DateTime());
+            $contact->setUpdatedAt(new DateTime());
 
             $repository->save($contact, true);
 
-              //email
-              $email = (new TemplatedEmail())
-              ->from($contact->getEmail())
-              ->to('contact@restaurant-lapalme.fr')
-              //->cc('cc@example.com')
-              //->bcc('bcc@example.com')
-              //->replyTo('fabien@example.com')
-              //->priority(Email::PRIORITY_HIGH)
-              ->subject("La Palme - Message de  " . $contact->getPrenom() . " "  . $contact->getNom())
-              ->text($contact->getMessage())
-              ->htmlTemplate('admin/email_contact.html.twig')
-  
-              ->context([
-                  'contact' => $contact,
-              ]);
-  
-          $mailer->send($email);
+            //email
+            $email = (new TemplatedEmail())
+                ->from('contact@restaurant-lapalme.fr')
+                ->to('lapalme60180@gmail.com')
+                //->cc('cc@example.com')
+                //->bcc('bcc@example.com')
+                //->replyTo('fabien@example.com')
+                //->priority(Email::PRIORITY_HIGH)
+                ->subject("La Palme - Message de  " . $contact->getPrenom() . " "  . $contact->getNom())
+                ->text($contact->getMessage())
+                ->htmlTemplate('admin/email_contact.html.twig')
 
-          $this->addFlash('success', "Votre message a bien été envoyé !");
-          return $this->redirectToRoute('show_home');
-      }
+                ->context([
+                    'contact' => $contact,
+                ]);
+
+            $mailer->send($email);
+
+            $this->addFlash('success', "Votre message a bien été envoyé !");
+            return $this->redirectToRoute('show_home');
+        }
         return $this->render('restaurant/contact_form.html.twig', [
             'form' => $form->createView()
         ]);
@@ -96,8 +97,25 @@ class ContactController extends AbstractController
     public function hardDeleteMessage(Contact $contact, ContactRepository $repository): Response
     {
         $repository->remove($contact, true);
-        
+
         $this->addFlash('success', "Le message a bien été supprimé définitivement !");
         return $this->redirectToRoute(('show_archive'));
     } // end hardDeleteMessage
+
+    #[Route('supprimer-tous-message-archive', name: 'delete_all_message_archive', methods: ['GET'])]
+    public function deleteAllMessageArchive(EntityManagerInterface $entityManager): Response
+    {
+        $messages = $entityManager->getRepository(Contact::class)->findAllArchived();
+
+        foreach ($messages as $message) {
+            $entityManager->remove($message);
+        }
+
+        $entityManager->flush();
+
+
+        $this->addFlash('success', "Tous les messages archivés ont bien été supprimés !");
+        return $this->redirectToRoute(('show_archive'));
+    } // end deleteAllMessageArchive
+
 }

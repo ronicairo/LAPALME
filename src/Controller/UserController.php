@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+
 class UserController extends AbstractController
 {
     #[Route('/inscription', name: 'register', methods: ['GET', 'POST'])]
@@ -42,7 +43,6 @@ class UserController extends AbstractController
 
             $this->addFlash('success', "Votre inscription a été correctement enregistrée");
             return $this->redirectToRoute('show_dashboard');
-
         }
 
         $users = $entityManager->getRepository(User::class)->findAll();
@@ -103,4 +103,5 @@ class UserController extends AbstractController
             'form' => $form->createView()
         ]);
     } // end changePassword()
+
 }

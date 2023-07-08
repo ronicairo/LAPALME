@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil - Restaurant La Palme{% endblock %}
+{% block title %}Restaurant La Palme - Nogent-sur-Oise
+{% endblock %}
 
 {% block body %}
 
@@ -13,14 +14,13 @@
 		<h1 style='display:none;'>La Palme - Restaurant Halal et Traditionnel à Nogent-sur-Oise</h1>
 
 		<section class="d-block w-100 d-lg-none">
-			<img src="./img/accueil2.png" alt="Restaurant Halal et Traditionnel La Palme Nogent-sur-Oise" class="img-fluid">
+			<img src="./img/accueil2.png" alt="Restaurant Halal et Traditionnel La Palme Nogent-sur-Oise" class="img-fluid mt-0">
 		</section>
 
 		<section class="d-block w-100 d-none d-lg-block mt-0">
 			<img src="./img/accueil1.png" alt="Restaurant Halal et Traditionnel La Palme Nogent-sur-Oise" class="img-fluid mt-0">
 		</section>
-
-
+		
 		{# CAROUSEL #}
 
 		<div class="reveal">
@@ -44,37 +44,34 @@
 			{# RESERVEZ #}
 			<div class="reservez mb-5">
 				<a href="{{ path('register_reservation') }}">
-					<button type="button">Réservez</button>
+					<button type="button" href="{{ path('register_reservation') }}">Réservez</button>
 				</a>
 			</div>
 		</div>
 
-		<div class="container">
-			<hr
-			class="mt-2 mb-5">
+		<div class="container reveal">
 
 			{# ARTICLE #}
+			<div class="article text-center mb-5">
+				{% for article in articles %}
+					<div class="row reveal text-center" style="padding:40px;">
 
-			{% for article in articles %}
-				<div class="row col-12 reveal text-center" style="padding:30px;">
-
-					<div class="col-md-7">
-						<img src="{{ asset('uploads/') ~ article.photo }}" class="img-fluid rounded text-center" style="max-height: 500px; margin-bottom: 50px;" alt={{ article.titre }}>
+						<div class="col-md-5">
+							<img src="{{ asset('uploads/') ~ article.photo }}" class="img-fluid rounded text-center pb-5 pt-5" style="max-height: 500px;" alt={{ article.titre }}>
+						</div>
+						<div class="col text-center align-self-center">
+							<h2 style="text-decoration:underline;">{{ article.titre }}</h2>
+							<h2>{{ article.soustitre }}</h2>
+							<p>{{ article.contenu}}</p>
+						</div>
 					</div>
-					<div class="col-md-5 text-center align-self-center">
-						<h2 class="text-light" style="text-decoration:underline;">{{ article.titre }}</h2>
-						<h2 class="text-secondary">{{ article.soustitre }}</h2>
-						<p class="text-light">{{ article.contenu}}</p>
-					</div>
-				</div>
-			{% endfor %}
+				{% endfor %}
+			</div>
 		</div>
-
+		
 		{# GALERIE #}
 
 		<div class="container reveal">
-
-			<hr class="mt-2 mb-5">
 
 			<div class="row text-center text-lg-start">
 				{% for galerie in galeries %}
@@ -87,20 +84,19 @@
 			</div>
 		</div>
 
-		<div class="container reveal">
-			<hr
-			class="mt-2 mb-5">
+		<div
+			class="container reveal">
 
 			{# VALEURS #}
 
-			<h2 class="featurette-heading fw-normal lh-1 mt-2 text-center d-block w-100 d-none d-lg-block">Nos valeurs</h2>
+			<h2 class="featurette-heading fw-normal lh-1 mt-2 text-center mt-3">Nos valeurs</h2>
 			<div class="marketing text-center">
 
 				<div class="row p-3">
 					<div class="col-lg-4">
 						<img class="bd-placeholder-img rounded" width="140" height="140" alt="Restaurant Qualité Bas Prix" src="./img/prix_qualite.jpg" role="img" aria-label="Placeholder: 140x140" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em"></text>
 
-						<h2 class="fw-normal mt-4">Rapport Qualité/Prix
+						<h2 class="fw-normal mt-4 pb-1">Rapport Qualité/Prix
 						</h2>
 					</div>
 
@@ -120,11 +116,11 @@
 
 		</div>
 
-		<div class="container reveal">
-			<hr
-			class="mt-2 mb-5">
+		<div
+			class="container reveal">
 
 			{# COMMENTAIRE #}
+
 			<div class="row">
 				<div class="col-6 mx-auto">
 
@@ -155,4 +151,5 @@
 
 	</main>
 
+  
 {% endblock %}

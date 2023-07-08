@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Carousel;
 use App\Form\CarouselFormType;
 use App\Repository\CarouselRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -120,6 +121,22 @@ class CarouselController extends AbstractController
         $this->addFlash('success', "Le carousel a bien été supprimé définitivement !");
         return $this->redirectToRoute(('show_archive'));
     } // end hardDeletecarousel
+
+
+    #[Route('supprimer-tous-carousel-archive', name: 'delete_all_carousel_archive', methods: ['GET'])]
+    public function deleteAllCarouselArchive(EntityManagerInterface $entityManager): Response
+    {
+        $carousels = $entityManager->getRepository(Carousel::class)->findAllArchived();
+
+        foreach ($carousels as $carousel) {
+            $entityManager->remove($carousel);
+        }
+
+        $entityManager->flush();
+
+        $this->addFlash('success', "Toutes les images archivées ont bien été supprimées définitivement du carousel !");
+        return $this->redirectToRoute(('show_archive'));
+    } // end deleteAllCarouselArchive
 
     private function handleFile(UploadedFile $photo, Carousel $carousel, SluggerInterface $slugger)
     {

@@ -5,58 +5,27 @@
 
 {% block body %}
 
+<h1 class="text-center mt-2">Contactez-nous</h1>
 
-		<div class="col-6 mx-auto">
-			{% include 'include/_flashes.html.twig' %}
-		</div>
-
-
-	{{ form_start(form) }}
-	<div class="contenu">
-		<div class="screen">
-			<div class="screen-header">
-				<div class="screen-header-left">
-					<div class="screen-header-button close"></div>
-					<div class="screen-header-button maximize"></div>
-					<div class="screen-header-button minimize"></div>
-				</div>
-				<div class="screen-header-right">
-					<div class="screen-header-ellipsis"></div>
-					<div class="screen-header-ellipsis"></div>
-					<div class="screen-header-ellipsis"></div>
-				</div>
-			</div>
-			<div class="screen-body">
-				<div class="screen-body-item left">
-					<div class="app-title">
-						<span class="text-center">
-							<h1><a class="numero" href="tel:0344660464">Contactez-nous par
-								<i class="bi bi-telephone-fill"></i>
-							</a></h1>
-							ou remplissez le formulaire.</span>
-					</div>
-					<div class="col-6 mx-auto">
-						<div class="row">
-							<div class="app-form-control">{{ form_row(form.nom) }}</div>
-						</div>
-						<div class="row">
-							<div class="app-form-control">{{ form_row(form.prenom) }}</div>
-						</div>
-						<div class="row">
-							<div class=" app-form-control">{{ form_row(form.email) }}</div>
-						</div>
-						<div class="row">
-							<div class="app-form-control">{{ form_row(form.message) }}</div>
-						</div>
-					</div>
-					<div class="my-1">
-						{{ form_row(form.submit) }}
-					</div>
-
-					{{form_end(form)}}
-
-				</div>
-			</div>
-		</div>
+	<div class="col-6 mx-auto">
+		{% include 'include/_flashes.html.twig' %}
 	</div>
-</div></div></div>{% endblock %}
+
+	<div class="col-8 mx-auto">
+
+		{{ form_start(form) }}
+
+		<div class="row">
+			<div class="col-6">{{ form_row(form.nom) }}</div>
+			<div class="col-6">{{ form_row(form.prenom) }}</div>
+			<div>{{ form_row(form.email) }}</div>
+			<div>{{ form_row(form.message) }}</div>
+		</div>
+
+		{{ form_row(form.submit) }}
+
+		{{form_end(form)}}
+
+	</div>
+
+{% endblock %}

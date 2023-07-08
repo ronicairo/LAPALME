@@ -7,7 +7,7 @@
 	<h1 class="text-center my-1 mt-5 text-white">Tableau de bord</h1>
 
 
-	<div class="col-6 mx-auto">
+	<div class="col-11 mx-auto">
 		{% include 'include/_flashes.html.twig' %}
 	</div>
 
@@ -34,15 +34,16 @@
 					<div class="row my-5 mx-auto text-center col-4">
 						<a class=" btn btn-sm btn-outline-dark" href="{{ path('register') }}">Ajouter un administrateur</a>
 					</div>
+
+					 <div class="table-responsive">
 					<table class="table">
-						<thead>
+						<thead class="container-fluid">
 							<tr class="text-center">
 								<th>#</th>
 								<th>Rôle</th>
-								<th>Prénom</th>
 								<th>Nom</th>
+								<th>Prénom</th>
 								<th>Email</th>
-								<th>Crée le</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -51,10 +52,9 @@
 								<tr class="text-center align-middle">
 									<td>{{ user.id }}</td>
 									<td>{{ user.roles | first }}</td>
-									<td>{{ user.lastname }}</td>
 									<td>{{ user.firstname }}</td>
-									<td>{{ user.email }}</td>
-									<td>{{ user.createdAt | date('d/m/Y') }}</td>
+									<td>{{ user.lastname }} </td>
+									<td>{{ user.email | length > 13 ? user.email | slice (0, 13) ~ '...' : user.email }}</td>
 									<td>
 										<a href="{{ path('change_password', {'id': user.id}) }}" class="btn btn-warning" title="Modifier">
 											<i class="bi bi-pen"></i>
@@ -72,6 +72,7 @@
 							{% endfor %}
 						</tbody>
 					</table>
+					</div>
 
 				</div>
 			</div>
@@ -91,7 +92,7 @@
 						<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_article') }}">Ajouter un article</a>
 					</div>
 
-
+ <div class="table-responsive">
 					<table class="table">
 						<thead>
 							<tr class="text-center">
@@ -130,7 +131,7 @@
 							{% endfor %}
 						</tbody>
 					</table>
-
+</div>
 
 				</div>
 			</div>
@@ -146,6 +147,7 @@
 
 					<h2 class="text-center">Messagerie</h2>
 
+ <div class="table-responsive">
 					<table class="table">
 						<thead>
 							<tr class="text-center align-middle">
@@ -154,8 +156,6 @@
 								<th>Nom</th>
 								<th>Prénom</th>
 								<th>Email</th>
-								<th>Message</th>
-								<th>Action</th>
 							</tr>
 						</thead>
 
@@ -184,6 +184,8 @@
 
 						</tbody>
 					</table>
+					</div>
+					
 
 				</div>
 			</div>
@@ -200,6 +202,7 @@
 
 					<h2 class="text-center">Les réservations</h2>
 
+ <div class="table-responsive">
 					<table class="table">
 						<thead>
 							<tr class="text-center align-middle">
@@ -208,7 +211,7 @@
 								<th>Prénom</th>
 								<th>Email</th>
 								<th>Nombre de personnes</th>
-								<th>Date et heure</th>
+								<th>Date</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -241,6 +244,7 @@
 
 						</tbody>
 					</table>
+					</div>
 
 				</div>
 			</div>
@@ -259,6 +263,8 @@
 					<div class="row my-5 mx-auto text-center col-4">
 						<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_carousel') }}">Ajouter une image</a>
 					</div>
+
+					 <div class="table-responsive">
 					<table class="table">
 						<thead>
 							<tr class="text-center">
@@ -297,6 +303,7 @@
 							{% endfor %}
 						</tbody>
 					</table>
+					</div>
 
 				</div>
 			</div>
@@ -315,6 +322,8 @@
 					<div class="row my-5 mx-auto text-center col-4">
 						<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_galerie') }}">Ajouter une image</a>
 					</div>
+
+					 <div class="table-responsive">
 					<table class="table">
 						<thead>
 							<tr class="text-center">
@@ -353,6 +362,7 @@
 							{% endfor %}
 						</tbody>
 					</table>
+					</div>
 
 				</div>
 			</div>

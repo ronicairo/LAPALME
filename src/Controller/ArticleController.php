@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Article;
 use App\Form\ArticleFormType;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -123,6 +124,21 @@ class ArticleController extends AbstractController
         return $this->redirectToRoute(('show_archive'));
     } // end hardDeleteArticle
     
+    #[Route('supprimer-tous-article-archive', name: 'delete_all_article_archive', methods: ['GET'])]
+    public function deleteAllArticleArchive(EntityManagerInterface $entityManager): Response
+    {
+        $articles = $entityManager->getRepository(Article::class)->findAllArchived();
+
+        foreach ($articles as $article) {
+            $entityManager->remove($article);
+        }
+
+        $entityManager->flush();
+
+        $this->addFlash('success', "Tous les articles archivés ont bien été supprimé !");
+        return $this->redirectToRoute(('show_archive'));
+    } // end deleteAllArticleArchive
+
     private function handleFile(UploadedFile $photo, Article $article, SluggerInterface $slugger)
     {
         $extension = "." . $photo->guessExtension();

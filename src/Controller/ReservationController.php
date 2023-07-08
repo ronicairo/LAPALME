@@ -5,6 +5,7 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Reservation;
 use App\Form\ReservationFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -116,5 +117,21 @@ public function hardDeleteReservation(Reservation $reservation, ReservationRepos
     return $this->redirectToRoute(('show_archive'));
 
 } // end hardDeleteReservation
+
+#[Route('supprimer-toute-reservation-archive', name: 'delete_all_reservation_archive', methods: ['GET'])]
+public function deleteAllReservationArchive(EntityManagerInterface $entityManager): Response
+{
+    $reservations = $entityManager->getRepository(Reservation::class)->findAllArchived();
+
+    foreach ($reservations as $reservation) {
+        $entityManager->remove($reservation);
+    }
+
+    $entityManager->flush();
+
+    $this->addFlash('success', "Toutes les réservations archivées ont bien été supprimées !");
+    return $this->redirectToRoute(('show_archive'));
+} // end deleteAllReservationArchive
+
 
 }

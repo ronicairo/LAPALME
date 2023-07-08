@@ -147,3 +147,26 @@ function reveal() {
 
 // To check the scroll position on page load
 reveal();
+
+ // Fonction pour afficher l'image agrandie
+    function afficherImageAgrandie(imageURL) {
+      // Créer un élément d'image pour l'image agrandie
+      var imageAgrandie = document.createElement("img");
+      imageAgrandie.src = imageURL;
+      
+      // Créer le conteneur de l'image agrandie
+      var conteneurImageAgrandie = document.createElement("div");
+      conteneurImageAgrandie.className = "image-agrandie";
+      conteneurImageAgrandie.appendChild(imageAgrandie);
+      
+      // Ajouter l'image agrandie à la page
+      document.body.appendChild(conteneurImageAgrandie);
+      
+      // Afficher l'image agrandie
+      conteneurImageAgrandie.style.display = "block";
+      
+      // Ajouter un gestionnaire d'événement pour masquer l'image agrandie lorsque vous cliquez dessus
+      conteneurImageAgrandie.addEventListener("click", function() {
+        conteneurImageAgrandie.style.display = "none";
+      });
+    }

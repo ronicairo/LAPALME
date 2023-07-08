@@ -44,7 +44,7 @@ class ChangePasswordFormType extends AbstractType
                 'label' => "Valider mon changement",
                 'validate' => false,
                 'attr' => [
-                    'class' => "d-block mx-auto btn btn-outline-light col-10"
+                    'class' => "d-block my-4 mx-auto btn btn-outline-light col-10"
                 ]
             ])
         ;
