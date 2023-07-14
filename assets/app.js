@@ -170,3 +170,91 @@ reveal();
         conteneurImageAgrandie.style.display = "none";
       });
     }
+
+    // CAROUSEL MOBILE
+
+// Controle de presence de l'élément sur la page en cours
+if( document.querySelector('.carrouse') ){
+
+    var carrouse = document.querySelector('.carrouse');
+    var reglette = document.querySelector('.carrouse .reglette');
+    console.log(reglette);
+
+    var figures = document.querySelectorAll('.carrouse .reglette figure');
+    var nbFigures = figures.length;
+
+    var tabOrganisation = new Array(nbFigures);
+
+    // Initialisation
+    reglette.style.width = 100 * nbFigures + '%';
+
+    for(let i=0; i < nbFigures; i++){
+        figures[i].style.order=i;
+        figures[i].style.width = (100/nbFigures) + '%';
+        tabOrganisation[i] = i;
+    }
+
+    // Reattribution des orders
+    function attribOrder(){
+        for(let i=0; i < nbFigures; i++){
+            figures[i].style.order = tabOrganisation[i];
+        }
+    }
+
+    // Organisation quand on recule
+    function previousImage(){
+        // attribuer la valeur de order du premier élément au dernier
+        let element = tabOrganisation.shift();
+        tabOrganisation.push(element);
+        attribOrder();
+    }
+
+    // Organisation quand on avance
+    function nextImage(){
+        // attribuer la valeur de order du dernier élément au premier
+        let element = tabOrganisation.pop();
+        tabOrganisation.unshift(element);
+        attribOrder();
+    }
+    
+    function carrouseNext(){
+        console.log(reglette);
+
+        reglette.classList.add('animavance');
+        setTimeout(function(){
+
+            reglette.style.left=0;
+            nextImage();
+            reglette.classList.remove('animavance');
+
+        },1000);
+    }
+
+    function carrousePrevious(){
+        previousImage();
+        reglette.style.left='-100%';
+
+        reglette.classList.add('animrecule');
+        setTimeout(function(){
+            reglette.classList.remove('animrecule');
+            reglette.style.left=0;
+        },1000);
+
+    }
+    
+    let timer2 = setInterval(carrouseNext,3000);
+
+    // mettre en place une pause quand la souris rentre sur le carrousel
+    carrouse.addEventListener('mouseenter',function(){
+        clearInterval(timer2);
+    });
+
+    carrouse.addEventListener('mouseleave',function(){
+        clearInterval(timer2); // par sécurité on arrête un eventuel redémarrage
+        timer2 =  setInterval(carrouseNext,3000);
+    });
+
+    document.querySelector('.previou').addEventListener('click',carrousePrevious);
+    document.querySelector('.nex').addEventListener('click',carrouseNext);
+
+}

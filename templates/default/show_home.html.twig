@@ -5,6 +5,31 @@
 
 {% block body %}
 
+<style>
+  .image-agrandie {
+      display: none; /* L'image agrandie est initialement masquée */
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8); /* Couleur de fond semi-transparente */
+      z-index: 9999;
+    }
+    
+    .image-agrandie img {
+      display: block;
+      max-width: 90%;
+      max-height: 90%;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+	</style>
+	
 	<main>
 
 		{% include "include/_flashes.html.twig" %}
@@ -23,12 +48,12 @@
 		
 		{# CAROUSEL #}
 
-		<div class="reveal">
+		<div class="d-block w-100 d-none d-lg-block reveal">
 			<div class="carrousel">
 				<div class="reglette">
 					{% for carousel in carousels %}
 						<figure>
-							<img style="border:20px;" src="{{ asset('uploads/' ~ carousel.photo) }}" alt="{{ asset('uploads/' ~ carousel.titre) }}">
+							<img style="border:20px;" onclick="afficherImageAgrandie(this.src)" src="{{ asset('uploads/' ~ carousel.photo) }}" alt="{{ asset('uploads/' ~ carousel.titre) }}">
 						</figure>
 					{% endfor %}
 				</div>
@@ -37,6 +62,34 @@
 					<i class="fa-solid fa-chevron-left"></i>
 				</div>
 				<div class="next">
+					<i class="fa-solid fa-chevron-right"></i>
+				</div>
+			</div>
+
+			{# RESERVEZ #}
+			<div class="reservez mb-5">
+				<a href="{{ path('register_reservation') }}">
+					<button type="button" href="{{ path('register_reservation') }}">Réservez</button>
+				</a>
+			</div>
+		</div>
+
+{# CAROUSEL MOBILE #}
+
+		<div class="d-block w-100 d-lg-none reveal">
+			<div class="carrouse">
+				<div class="reglette">
+					{% for carouselmobile in carouselmobiles %}
+						<figure>
+							<img src="{{ asset('uploads/' ~ carouselmobile.photo) }}" onclick="afficherImageAgrandie(this.src)" alt="{{ asset('uploads/' ~ carouselmobile.titre) }}">
+						</figure>
+					{% endfor %}
+				</div>
+
+				<div class="previou">
+					<i class="fa-solid fa-chevron-left"></i>
+				</div>
+				<div class="nex">
 					<i class="fa-solid fa-chevron-right"></i>
 				</div>
 			</div>
@@ -77,7 +130,7 @@
 				{% for galerie in galeries %}
 					<div class="col-lg-4 col-md-3 text-center">
 						<a class="d-block mb-4">
-							<img class="img-fluid rounded" style="object-fit: cover; height: 300px; width:300px;" src="{{ asset('uploads/') ~ galerie.img }}" alt="{{ galerie.titre }}">
+							<img class="img-fluid rounded" onclick="afficherImageAgrandie(this.src)" style="object-fit: cover; height: 300px; width:300px;" src="{{ asset('uploads/') ~ galerie.img }}" alt="{{ galerie.titre }}">
 						</a>
 					</div>
 				{% endfor %}
@@ -151,5 +204,28 @@
 
 	</main>
 
-  
+  <script>
+    function afficherImageAgrandie(imageURL) {
+      // Créer un élément d'image pour l'image agrandie
+      var imageAgrandie = document.createElement("img");
+      imageAgrandie.src = imageURL;
+      
+      // Créer le conteneur de l'image agrandie
+      var conteneurImageAgrandie = document.createElement("div");
+      conteneurImageAgrandie.className = "image-agrandie";
+      conteneurImageAgrandie.appendChild(imageAgrandie);
+      
+      // Ajouter l'image agrandie à la page
+      document.body.appendChild(conteneurImageAgrandie);
+      
+      // Afficher l'image agrandie
+      conteneurImageAgrandie.style.display = "block";
+      
+      // Ajouter un gestionnaire d'événement pour masquer l'image agrandie lorsque vous cliquez dessus
+      conteneurImageAgrandie.addEventListener("click", function() {
+        conteneurImageAgrandie.style.display = "none";
+      });
+    }
+	</script>
+
 {% endblock %}

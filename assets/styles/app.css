@@ -37,6 +37,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     position: relative;
     font-family: 'DM Serif Display', serif;
 
@@ -71,7 +72,6 @@ nav#menu ul {
     padding: 20px 0;
     margin: 0 20px;
     font-family: 'DM Serif Display', serif;
-    justify-content: space-evenly;
 }
 
 nav#menu ul li a {
@@ -188,6 +188,13 @@ h1 {
         overflow: hidden;
         border: 5px solid #222222;
     }
+
+    .carrouse {
+        position: relative;
+        margin: 60px auto 0px;
+        overflow: hidden;
+        border: 5px solid #222222;
+    }
     
 }
 
@@ -229,6 +236,7 @@ footer ul li a:hover {
     overflow: hidden;
     border: 5px solid #222222;
 }
+
 
 .carrousel .reglette {
     display: flex;
@@ -274,6 +282,84 @@ footer ul li a:hover {
 }
 
 .carrousel .reglette.animrecule {
+    animation: recule 1s ease-in-out forwards;
+    animation-iteration-count: 1;
+}
+
+@keyframes avance {
+    0% {
+        left: 0;
+    }
+
+    100% {
+        left: -100%;
+    }
+}
+
+@keyframes recule {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
+/* CAROUSEL MOBILE */
+
+.carrouse {
+    position: relative;
+    margin: 60px auto 0px;
+    overflow: hidden;
+    border: 5px solid #222222;
+}
+
+
+.carrouse .reglette {
+    display: flex;
+    height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.carrouse .reglette figure {
+    height: 100%;
+    position: relative;
+}
+
+.carrouse .reglette figure img {
+    width: 100%;
+    height: 100%;
+}
+
+.carrouse .previou,
+.carrouse .nex {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #C09F6A;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.carrouse .previou {
+    left: 0px;
+}
+
+.carrouse .nex {
+    right: 0px;
+}
+
+.carrouse .reglette.animavance {
+    animation: avance 1s ease-in-out forwards;
+    animation-iteration-count: 1;
+}
+
+.carrouse .reglette.animrecule {
     animation: recule 1s ease-in-out forwards;
     animation-iteration-count: 1;
 }

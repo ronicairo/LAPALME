@@ -33,8 +33,8 @@ class ReservationController extends AbstractController
             
            //email
            $email = (new TemplatedEmail())
-           ->from($reservation->getEmail())
-           ->to('contact@restaurant-lapalme.fr')
+           ->from('contact@restaurant-lapalme.fr')
+           ->to('lapalme60180@gmail.com')
            //->cc('cc@example.com')
            //->bcc('bcc@example.com')
            //->replyTo('fabien@example.com')

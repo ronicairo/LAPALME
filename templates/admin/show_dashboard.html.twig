@@ -20,7 +20,7 @@
 		</div>
 	</div>
 
-	<div class="accordion accordion-flush" id="accordionFlushExample">
+	<div class="accordion accordion-flush mb-5" id="accordionFlushExample">
 		<div class="accordion-item">
 			<h2 class="accordion-header">
 				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
@@ -309,13 +309,72 @@
 			</div>
 		</div>
 
-		<div class="accordion-item">
+			<div class="accordion-item">
 			<h2 class="accordion-header">
 				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-					Galerie
+					Carousel mobile
 				</button>
 			</h2>
 			<div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+				<div class="accordion-body">
+
+					<h2 class="text-center">Carousel mobile</h2>
+					<div class="row my-5 mx-auto text-center col-4">
+						<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_carouselmobile') }}">Ajouter une image</a>
+					</div>
+
+					 <div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr class="text-center">
+								<th>#</th>
+								<th>Titre</th>
+								<th>Image</th>
+								<th>Crée le</th>
+								<th>Modifié le</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							{% for carouselmobile in carouselmobiles %}
+								<tr class="text-center align-middle">
+									<td>{{ carouselmobile.id }}</td>
+									<td>{{ carouselmobile.titre }}</td>
+									<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ carouselmobile.photo) }}"></td>
+									<td>{{ carouselmobile.createdAt | date('d/m/Y') }}</td>
+									<td>{{ carouselmobile.updatedAt | date('d/m/Y') }}</td>
+									<td>
+										<a href="{{ path('update_mobile', {'id': carouselmobile.id})}}" class="btn btn-warning" title="Modifier">
+											<i class="bi bi-pen"></i>
+										</a>
+										<a href="{{ path('soft_delete_carouselmobile', {'id': carouselmobile.id})}}" class="btn btn-danger" title="Archiver">
+											<i class="bi bi-archive"></i>
+										</a>
+									</td>
+
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="7" class="bg-secondary text-center">Aucune image</td>
+								</tr>
+
+							{% endfor %}
+						</tbody>
+					</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+					Galerie
+				</button>
+			</h2>
+			<div id="flush-collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
 				<div class="accordion-body">
 
 					<h2 class="text-center">Galerie</h2>

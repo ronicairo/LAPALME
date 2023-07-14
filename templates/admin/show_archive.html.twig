@@ -239,4 +239,56 @@
 
 		</div>
 
+		<div class="col-10 mx-auto my-4">
+
+			<h2 class="text-center">Carousel mobile</h2>
+
+
+			<div class="row my-5 mx-auto text-center col-4">
+						<a href="{{ path('delete_all_carouselmobile_archive') }}" class="btn btn-danger" title="Supprimer définitivement les images du carousel" onclick="return confirm('Voulez-vous supprimer définitivement tous les images du carousel archivés ?')">
+									<i class="bi bi-trash"> Tout supprimer</i>
+								</a>
+					</div>
+
+			<table class="table">
+				<thead>
+					<tr class="text-center text-white">
+						<th>#</th>
+						<th>Titre</th>
+						<th>Image</th>
+						<th>Crée le</th>
+						<th>Modifié le</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					{% for carouselmobile in carouselmobiles %}
+						<tr class="text-center text-white">
+							<td>{{ carouselmobile.id }}</td>
+							<td>{{ carouselmobile.titre }}</td>
+							<td><img width="150" height="150" class="img-fluid" src="{{ asset('uploads/' ~ carouselmobile.photo) }}"></td>
+							<td>{{ carouselmobile.createdAt | date('d/m/Y') }}</td>
+							<td>{{ carouselmobile.updatedAt | date('d/m/Y') }}</td>
+							<td>
+								<a href="{{ path('restore_carouselmobile', {'id': carouselmobile.id}) }}" class="btn btn-success" title="Restaurer l'image du carousel">
+									<i class="bi bi-reply"></i>
+								</a>
+								<a href="{{ path('hard_delete_carouselmobile', {'id': carouselmobile.id}) }}" class="btn btn-danger" title="Supprimer définitivement l'image du carousel" onclick="return confirm('Voulez-vous supprimer définitivement cette image ?')">
+									<i class="bi bi-trash"></i>
+								</a>
+							</td>
+
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7" class="bg-secondary text-center">Aucune image archivée</td>
+						</tr>
+
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+
 	{% endblock %}

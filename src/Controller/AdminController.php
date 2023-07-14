@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Contact;
 use App\Entity\Carousel;
+use App\Entity\Carouselmobile;
 use App\Entity\Commentaire;
 use App\Entity\Galerie;
 use App\Entity\Reservation;
@@ -35,6 +36,7 @@ class AdminController extends AbstractController
         $messages = $entityManager->getRepository(Contact::class)->findBy(['deletedAt' => null]);
         $reservations = $entityManager->getRepository(Reservation::class)->findBy(['deletedAt' => null]);
         $carousels = $entityManager->getRepository(Carousel::class)->findBy(['deletedAt' => null]);
+        $carouselmobiles = $entityManager->getRepository(Carouselmobile::class)->findBy(['deletedAt' => null]);
         $commentaires = $entityManager->getRepository(Commentaire::class)->findBy(['deletedAt' => null]);
         $galeries = $entityManager->getRepository(Galerie::class)->findBy(['deletedAt' => null]);
 
@@ -44,6 +46,7 @@ class AdminController extends AbstractController
             'messages' => $messages,
             'reservations' => $reservations,
             'carousels' => $carousels,
+            'carouselmobiles' => $carouselmobiles,
             'commentaires' => $commentaires,
             'galeries' => $galeries,
 
@@ -65,6 +68,7 @@ class AdminController extends AbstractController
     $messages = $entityManager->getRepository(Contact::class)->findAllArchived();
     $reservations = $entityManager->getRepository(Reservation::class)->findAllArchived();
     $carousels = $entityManager->getRepository(Carousel::class)->findAllArchived();
+    $carouselmobiles = $entityManager->getRepository(Carouselmobile::class)->findAllArchived();
     $commentaires = $entityManager->getRepository(Commentaire::class)->findAllArchived();
     
     return $this->render('admin/show_archive.html.twig', [
@@ -72,6 +76,7 @@ class AdminController extends AbstractController
         'messages' => $messages,
         'reservations' => $reservations,
         'carousels' => $carousels,
+        'carouselmobiles' => $carouselmobiles,
         'commentaires' => $commentaires,
 
     ]);
